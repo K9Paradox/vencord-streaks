@@ -1,0 +1,28 @@
+{
+  "name": "vencord-streaks",
+  "version": "1.0.0",
+  "description": "A Vencord plugin that tracks mutual voice call interactions and DMs, unlocks familiarity badges, and reminds you when you last hung out.",
+  "main": "index.tsx",
+  "scripts": {
+    "lint": "eslint . --ext .ts,.tsx",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "vencord",
+    "vencord-plugin",
+    "discord",
+    "streaks",
+    "voice-chat",
+    "gamers"
+  ],
+  "author": "K9Paradox",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/K9Paradox/vencord-streaks.git"
+  },
+  "bugs": {
+    "url": "https://github.com/K9Paradox/vencord-streaks/issues"
+  },
+  "homepage": "https://github.com/K9Paradox/vencord-streaks#readme"
+}
