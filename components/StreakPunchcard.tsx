@@ -67,9 +67,6 @@ export function StreakPunchcard({
     if (mode === "week") {
         return (
             <div className="vc-streaks-punchcard-week">
-                <div className="vc-streaks-punchcard-header">
-                    <span className="vc-streaks-section-label">Last 7 Days Activity</span>
-                </div>
                 <div className="vc-streaks-punchcard-pills">
                     {days.map(d => {
                         const tooltipContent = (
@@ -117,9 +114,6 @@ export function StreakPunchcard({
     // Monthly 4-week grid (28 days)
     return (
         <div className="vc-streaks-punchcard-month">
-            <div className="vc-streaks-punchcard-header">
-                <span className="vc-streaks-section-label">4-Week Activity Matrix</span>
-            </div>
             <div className="vc-streaks-punchcard-grid">
                 {days.map(d => {
                     const tooltipContent = (

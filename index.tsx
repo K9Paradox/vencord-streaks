@@ -45,7 +45,7 @@ const renderVoiceBadge = ErrorBoundary.wrap(
 );
 
 const renderProfileModalTab = ErrorBoundary.wrap(
-    ({ user }: { user: { id: string } }) => {
+    ({ user }: { user?: { id: string } }) => {
         if (!user?.id) return null;
         return (
             <div className="vc-streaks-modal-tab-content">
@@ -90,9 +90,28 @@ export default definePlugin({
             // Full Profile Modal & Popout Header: places badge next to display name & pronouns
             find: "#{intl::USER_PROFILE_PRONOUNS}",
             replacement: {
-                match: /(user:(\i).{0,100}onClickDisplayName:\i,trailing:)([^,}]+)/,
+                match: /(user:(\i).{0,100}onClickDisplayName:\i,trailing:)(\[[^\]]+\]|\i)/,
                 replace: "$1[$self.renderHeaderBadge($2?.id),$3]"
             },
+            predicate: () => settings.store.showInProfileModal
+        },
+        {
+            // Full Profile Modal Tab (Legacy / standard modal): adds dedicated "Streaks" tab
+            find: ".BOT_DATA_ACCESS?(",
+            replacement: [
+                {
+                    match: /(?<=initialSection:\i=\i\.\i\.USER_INFO,onClose:\i\}=)([^,);]+)/,
+                    replace: "$self.getProfileModalProps($1)"
+                },
+                {
+                    match: /\(0,\i\.jsx\)\(\i,\{items:\i,section:(\i)/,
+                    replace: "$1==='STREAKS'?$self.renderProfileModalTab({...arguments[0],isLegacy:true}):$&"
+                },
+                {
+                    match: /className:\i\.\i(?=,type:"top")/,
+                    replace: '$& + " vc-streaks-modal-tab-bar"'
+                }
+            ],
             predicate: () => settings.store.showInProfileModal
         },
         {
@@ -100,7 +119,7 @@ export default definePlugin({
             find: ".WIDGETS?",
             replacement: [
                 {
-                    match: /(?<=items:\i,initialSection:\i,onClose:\i\}=)(\i)/,
+                    match: /(?<=items:\i,initialSection:\i,onClose:\i\}=)([^,);]+)/,
                     replace: "$self.getProfileModalProps($1)"
                 },
                 {
@@ -119,8 +138,8 @@ export default definePlugin({
             find: "#{intl::GUEST_NAME_SUFFIX})]",
             replacement: [
                 {
-                    match: /(user:(\i).{0,250}?#{intl::GUEST_NAME_SUFFIX}.{0,50}?"")(\])/,
-                    replace: '$1,$self.renderVoiceBadge($2?.id)$3'
+                    match: /(user:(\i)[\s\S]+?#{intl::GUEST_NAME_SUFFIX}.{0,50}?"")(\])/,
+                    replace: "$1,$self.renderVoiceBadge($2?.id)$3"
                 }
             ],
             predicate: () => settings.store.showInVoiceChannel
@@ -132,12 +151,14 @@ export default definePlugin({
     renderVoiceBadge,
     renderProfileModalTab,
 
-    getProfileModalProps(props: { user?: { id: string; bot?: boolean }; items: any[] }) {
+    getProfileModalProps(props: any) {
         try {
             if (!props?.user?.id || props.user.bot) return props;
             const section = { text: "Streaks", section: "STREAKS" };
             const items = [...(props.items || [])];
-            items.splice(1, 0, section);
+            if (!items.some((item: any) => item?.section === "STREAKS")) {
+                items.splice(1, 0, section);
+            }
             return { ...props, items };
         } catch (e) {
             console.error("[Streaks] Failed to append profile tab:", e);

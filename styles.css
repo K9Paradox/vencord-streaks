@@ -7,177 +7,97 @@
    Adaptive Theme Custom Properties
    -------------------------------------------------------------------------- */
 
-/* Light Theme (and default fallback) */
+/* Light Theme (and default light fallback) */
 :root, .theme-light {
-    --streaks-card-bg: var(--background-secondary, #f2f3f5);
-    --streaks-card-bg-subtle: var(--background-secondary-alt, #e3e5e8);
-    --streaks-card-border: var(--border-subtle, rgba(0, 0, 0, 0.12));
-    --streaks-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
+    --streaks-card-bg: var(--background-secondary-alt, #e3e5e8);
+    --streaks-card-border: var(--border-subtle, rgba(0, 0, 0, 0.08));
+    --streaks-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 
-    --streaks-surface-box: var(--background-mod-subtle, var(--background-primary, rgba(0, 0, 0, 0.04)));
-    --streaks-surface-border: var(--border-subtle, rgba(0, 0, 0, 0.08));
-    --streaks-surface-hover: var(--background-modifier-hover, rgba(0, 0, 0, 0.06));
+    --streaks-surface-box: var(--background-modifier-accent, rgba(0, 0, 0, 0.05));
+    --streaks-surface-border: var(--border-subtle, rgba(0, 0, 0, 0.06));
+    --streaks-surface-hover: var(--background-modifier-hover, rgba(0, 0, 0, 0.08));
 
-    --streaks-track-bg: var(--background-modifier-accent, rgba(0, 0, 0, 0.12));
+    --streaks-track-bg: var(--background-modifier-accent, rgba(0, 0, 0, 0.10));
 
     /* Adaptive Tier Accent Colors (WCAG Contrast on Light Backgrounds) */
-    --streaks-tier-first-contact: var(--text-muted, #5c5e66);
-    --streaks-tier-first-contact-glow: rgba(92, 94, 102, 0.20);
+    --streaks-tier-first-contact: var(--text-muted, #475569);
+    --streaks-tier-first-contact-glow: rgba(71, 85, 105, 0.15);
 
-    --streaks-tier-bronze: #8b4513; /* Deep rustic bronze */
-    --streaks-tier-bronze-glow: rgba(139, 69, 19, 0.25);
+    --streaks-tier-bronze: #854d0e;
+    --streaks-tier-bronze-glow: rgba(133, 77, 14, 0.20);
 
-    --streaks-tier-silver: #475569; /* Slate silver */
-    --streaks-tier-silver-glow: rgba(71, 85, 105, 0.25);
+    --streaks-tier-silver: #475569;
+    --streaks-tier-silver-glow: rgba(71, 85, 105, 0.20);
 
-    --streaks-tier-gold: #a16207;   /* Deep amber gold */
-    --streaks-tier-gold-glow: rgba(161, 98, 7, 0.25);
+    --streaks-tier-gold: #b45309;
+    --streaks-tier-gold-glow: rgba(180, 83, 9, 0.20);
 
-    --streaks-tier-emerald: #15803d; /* Forest emerald */
-    --streaks-tier-emerald-glow: rgba(21, 128, 61, 0.25);
+    --streaks-tier-emerald: #15803d;
+    --streaks-tier-emerald-glow: rgba(21, 128, 61, 0.20);
 
-    --streaks-tier-amethyst: #7e22ce; /* Royal purple */
-    --streaks-tier-amethyst-glow: rgba(126, 34, 206, 0.25);
+    --streaks-tier-amethyst: #7e22ce;
+    --streaks-tier-amethyst-glow: rgba(126, 34, 206, 0.20);
 
-    --streaks-tier-ruby: #b91c1c; /* Crimson ruby */
-    --streaks-tier-ruby-glow: rgba(185, 28, 28, 0.25);
+    --streaks-tier-ruby: #b91c1c;
+    --streaks-tier-ruby-glow: rgba(185, 28, 28, 0.20);
 
-    --streaks-tier-diamond: #0284c7; /* Azure ocean diamond */
-    --streaks-tier-diamond-glow: rgba(2, 132, 199, 0.25);
+    --streaks-tier-diamond: #0369a1;
+    --streaks-tier-diamond-glow: rgba(3, 105, 161, 0.20);
 }
 
 /* Dark & Midnight Theme Variables */
 .theme-dark, .theme-midnight {
-    --streaks-card-bg: var(--background-secondary, #2b2d31);
-    --streaks-card-bg-subtle: var(--background-secondary-alt, #1e1f22);
-    --streaks-card-border: var(--border-subtle, rgba(255, 255, 255, 0.08));
-    --streaks-card-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
+    --streaks-card-bg: var(--background-secondary-alt, #1e1f22);
+    --streaks-card-border: var(--border-subtle, rgba(255, 255, 255, 0.06));
+    --streaks-card-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
 
-    --streaks-surface-box: var(--background-secondary-alt, rgba(255, 255, 255, 0.03));
-    --streaks-surface-border: var(--border-subtle, rgba(255, 255, 255, 0.05));
+    --streaks-surface-box: var(--background-modifier-accent, rgba(255, 255, 255, 0.04));
+    --streaks-surface-border: var(--border-subtle, rgba(255, 255, 255, 0.04));
     --streaks-surface-hover: var(--background-modifier-hover, rgba(255, 255, 255, 0.06));
 
-    --streaks-track-bg: var(--background-modifier-accent, rgba(255, 255, 255, 0.10));
+    --streaks-track-bg: var(--background-modifier-accent, rgba(255, 255, 255, 0.08));
 
     /* Vibrant Neon Colors on Dark Backgrounds */
     --streaks-tier-first-contact: #949BA4;
     --streaks-tier-first-contact-glow: rgba(148, 155, 164, 0.25);
 
     --streaks-tier-bronze: #CD7F32;
-    --streaks-tier-bronze-glow: rgba(205, 127, 50, 0.40);
+    --streaks-tier-bronze-glow: rgba(205, 127, 50, 0.35);
 
     --streaks-tier-silver: #E2E8F0;
-    --streaks-tier-silver-glow: rgba(226, 232, 240, 0.45);
+    --streaks-tier-silver-glow: rgba(226, 232, 240, 0.40);
 
     --streaks-tier-gold: #FEE75C;
-    --streaks-tier-gold-glow: rgba(254, 231, 92, 0.50);
+    --streaks-tier-gold-glow: rgba(254, 231, 92, 0.45);
 
     --streaks-tier-emerald: #57F287;
-    --streaks-tier-emerald-glow: rgba(87, 242, 135, 0.55);
+    --streaks-tier-emerald-glow: rgba(87, 242, 135, 0.45);
 
     --streaks-tier-amethyst: #A855F7;
-    --streaks-tier-amethyst-glow: rgba(168, 85, 247, 0.55);
+    --streaks-tier-amethyst-glow: rgba(168, 85, 247, 0.45);
 
     --streaks-tier-ruby: #F23F43;
-    --streaks-tier-ruby-glow: rgba(242, 63, 67, 0.60);
+    --streaks-tier-ruby-glow: rgba(242, 63, 67, 0.50);
 
     --streaks-tier-diamond: #00F0FF;
-    --streaks-tier-diamond-glow: rgba(0, 240, 255, 0.70);
+    --streaks-tier-diamond-glow: rgba(0, 240, 255, 0.55);
 }
 
 /* --------------------------------------------------------------------------
-   Badge in User Header & Member List
-   -------------------------------------------------------------------------- */
-.vc-streaks-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 2px 8px;
-    border-radius: 12px;
-    background: var(--streaks-surface-box);
-    border: 1px solid var(--streaks-surface-border);
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 16px;
-    user-select: none;
-    transition: transform 0.18s cubic-bezier(0.2, 0, 0, 1), background 0.18s ease, border-color 0.18s ease;
-}
-
-.vc-streaks-badge:hover {
-    transform: translateY(-1.5px) scale(1.02);
-    background: var(--streaks-surface-hover);
-    border-color: var(--border-strong, var(--streaks-surface-border));
-}
-
-.vc-streaks-badge-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 14px;
-    height: 14px;
-    filter: drop-shadow(0 0 3px currentColor);
-}
-
-.vc-streaks-badge-icon svg {
-    width: 14px;
-    height: 14px;
-}
-
-.vc-streaks-badge-flame {
-    color: #f38630;
-    font-weight: 700;
-    padding-left: 2px;
-    display: inline-flex;
-    align-items: center;
-    gap: 2px;
-}
-
-/* Tooltip Customization */
-.vc-streaks-badge-tooltip,
-.vc-streaks-tooltip-inner {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding: 2px 4px;
-}
-
-.vc-streaks-tooltip-title,
-.vc-streaks-tooltip-bold {
-    font-weight: 700;
-    font-size: 13px;
-    color: var(--header-primary, #ffffff);
-}
-
-.vc-streaks-tooltip-desc,
-.vc-streaks-tooltip-dim {
-    font-size: 11px;
-    color: var(--text-muted, #949ba4);
-}
-
-.vc-streaks-tooltip-streak {
-    font-size: 11px;
-    font-weight: 600;
-    color: #f38630;
-    margin-top: 2px;
-}
-
-/* --------------------------------------------------------------------------
-   Main Profile Card (Discord Popout & Full Modal Container)
+   Main Profile Card (Popout & Full Modal Container)
    -------------------------------------------------------------------------- */
 .vc-streaks-card {
     background: var(--profile-body-background-color, var(--streaks-card-bg));
-    border-radius: 10px;
-    padding: 12px;
+    border-radius: 8px;
+    padding: 10px 12px;
     margin: 8px 0;
     border: 1px solid var(--streaks-card-border);
     box-shadow: var(--streaks-card-shadow);
     display: flex;
     flex-direction: column;
-    gap: 10px;
     box-sizing: border-box;
     color: var(--text-normal);
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: background 0.15s ease, border-color 0.15s ease;
 }
 
 .vc-streaks-card-empty {
@@ -187,260 +107,270 @@
     border-radius: 8px;
 }
 
-.vc-streaks-title,
-.vc-streaks-section-label {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--header-secondary, #b5bac1);
-}
-
-.vc-streaks-empty-text {
+.vc-streaks-empty-desc {
     font-size: 12px;
-    color: var(--text-muted, #949ba4);
+    color: var(--text-muted);
     line-height: 16px;
     margin-top: 4px;
 }
 
 /* Card Header */
-.vc-streaks-header {
+.vc-streaks-card-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-
-.vc-streaks-tier-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.vc-streaks-card-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    background: var(--streaks-surface-box);
-    border: 1px solid var(--streaks-surface-border);
-    box-shadow: 0 0 10px -2px currentColor;
-    transition: transform 0.2s ease;
-}
-
-.vc-streaks-card:hover .vc-streaks-card-icon {
-    transform: scale(1.08) rotate(2deg);
-}
-
-.vc-streaks-card-icon svg {
-    width: 20px;
-    height: 20px;
-}
-
-.vc-streaks-tier-name {
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 18px;
-    letter-spacing: -0.01em;
-}
-
-.vc-streaks-tier-tagline {
-    font-size: 12px;
-    color: var(--text-muted, #949ba4);
-}
-
-/* --------------------------------------------------------------------------
-   Compact Mode vs Detailed Mode
-   -------------------------------------------------------------------------- */
-.vc-streaks-compact-strip {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 6px 10px;
-    background: var(--streaks-surface-box);
-    border: 1px solid var(--streaks-surface-border);
-    border-radius: 8px;
     cursor: pointer;
-    transition: background 0.15s ease, border-color 0.15s ease;
+    user-select: none;
 }
 
-.vc-streaks-compact-strip:hover {
-    background: var(--streaks-surface-hover);
-    border-color: var(--border-strong, var(--streaks-surface-border));
-}
-
-.vc-streaks-compact-left {
+.vc-streaks-header-left {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+}
+
+.vc-streaks-header-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.vc-streaks-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--header-secondary);
+}
+
+.vc-streaks-header-streak-pill {
+    display: inline-flex;
+    align-items: center;
 }
 
 .vc-streaks-toggle-btn {
     background: none;
     border: none;
-    color: var(--interactive-normal, #b5bac1);
+    color: var(--interactive-normal);
     cursor: pointer;
     padding: 2px 4px;
     border-radius: 4px;
     display: flex;
     align-items: center;
-    transition: color 0.15s ease, transform 0.2s ease;
+    justify-content: center;
+    transition: color 0.15s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .vc-streaks-toggle-btn:hover {
-    color: var(--interactive-active, #ffffff);
+    color: var(--interactive-active);
 }
 
 .vc-streaks-toggle-btn.expanded {
     transform: rotate(180deg);
 }
 
-/* --------------------------------------------------------------------------
-   Progress Bar with Native Adaptive Track & Liquid Gradient Shimmer
-   -------------------------------------------------------------------------- */
-.vc-streaks-progress-container {
+/* Overview Main Row */
+.vc-streaks-overview-row {
     display: flex;
-    flex-direction: column;
-    gap: 5px;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    cursor: pointer;
+    user-select: none;
 }
 
-.vc-streaks-progress-labels {
+.vc-streaks-tier-icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: var(--streaks-surface-box);
+    border: 1px solid currentColor;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.vc-streaks-card:hover .vc-streaks-tier-icon-box {
+    transform: scale(1.05);
+}
+
+.vc-streaks-icon-svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+}
+
+.vc-streaks-icon-svg svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+.vc-streaks-overview-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    flex: 1;
+    min-width: 0;
+}
+
+.vc-streaks-tier-title-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 6px;
+}
+
+.vc-streaks-tier-title {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 18px;
+}
+
+.vc-streaks-overview-quickstats {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.vc-streaks-tier-tagline {
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Progress Bar */
+.vc-streaks-progress-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 8px;
+}
+
+.vc-streaks-progress-meta {
     display: flex;
     justify-content: space-between;
     font-size: 11px;
     font-weight: 600;
-    color: var(--text-muted, #949ba4);
+    color: var(--text-muted);
 }
 
-.vc-streaks-progress-bar-bg {
+.vc-streaks-progress-track {
     width: 100%;
-    height: 6px;
+    height: 4px;
     background: var(--streaks-track-bg);
-    border-radius: 4px;
+    border-radius: 2px;
     overflow: hidden;
-    position: relative;
 }
 
-.vc-streaks-progress-bar-fill {
+.vc-streaks-progress-fill {
     height: 100%;
-    border-radius: 4px;
-    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    position: relative;
-    overflow: hidden;
+    border-radius: 2px;
+    transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Shimmer pass */
-.vc-streaks-progress-bar-fill::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.35) 50%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    animation: vc-shimmer 2.2s infinite ease-in-out;
+/* Expanded Telemetry Section */
+.vc-streaks-expanded-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--streaks-surface-border);
+    animation: vc-streaks-slide-down 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes vc-shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+@keyframes vc-streaks-slide-down {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* --------------------------------------------------------------------------
-   Telemetry Stats Grid
-   -------------------------------------------------------------------------- */
+/* Two-Column Telemetry Stats Grid */
 .vc-streaks-stats-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
 }
 
-.vc-streaks-stat-box {
+.vc-streaks-stat-card {
     background: var(--streaks-surface-box);
     border: 1px solid var(--streaks-surface-border);
-    border-radius: 8px;
+    border-radius: 6px;
     padding: 8px 10px;
     display: flex;
     flex-direction: column;
     gap: 2px;
-    transition: border-color 0.15s ease, transform 0.15s ease, background 0.15s ease;
 }
 
-.vc-streaks-stat-box:hover {
-    background: var(--streaks-surface-hover);
-    border-color: var(--border-strong, var(--streaks-surface-border));
-    transform: translateY(-1px);
+.vc-streaks-stat-top {
+    display: flex;
+    align-items: center;
 }
 
 .vc-streaks-stat-label {
     font-size: 10px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.03em;
-    color: var(--header-secondary, #b5bac1);
+    letter-spacing: 0.04em;
+    color: var(--header-secondary);
 }
 
 .vc-streaks-stat-value {
     font-size: 15px;
     font-weight: 700;
     font-variant-numeric: tabular-nums;
-    color: var(--header-primary, #ffffff);
+    color: var(--header-primary);
 }
 
-.vc-streaks-stat-sub {
+.vc-streaks-stat-detail {
     font-size: 11px;
-    color: var(--text-muted, #949ba4);
+    color: var(--text-muted);
 }
 
-/* --------------------------------------------------------------------------
-   Activity Punchcard & Heatmap
-   -------------------------------------------------------------------------- */
-.vc-streaks-punchcard-section {
+/* Activity Momentum (Punchcard) */
+.vc-streaks-punchcard-container {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
 }
 
-.vc-streaks-punchcard-toggle-row {
+.vc-streaks-punchcard-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 4px;
 }
 
-.vc-streaks-mode-toggle {
+.vc-streaks-view-toggle-btn {
     background: none;
     border: none;
     font-size: 10px;
-    color: var(--interactive-normal, #949ba4);
+    color: var(--text-muted);
     cursor: pointer;
     text-decoration: underline;
     padding: 0;
     transition: color 0.15s ease;
 }
 
-.vc-streaks-mode-toggle:hover {
-    color: var(--interactive-active, #ffffff);
-}
-
-.vc-streaks-punchcard-week,
-.vc-streaks-punchcard-month {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding-top: 2px;
+.vc-streaks-view-toggle-btn:hover {
+    color: var(--interactive-active);
 }
 
 .vc-streaks-punchcard-pills {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
+    gap: 4px;
 }
 
 .vc-streaks-day-pill {
@@ -448,33 +378,31 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 4px;
-    padding: 6px 0;
+    gap: 3px;
+    padding: 5px 0;
     background: var(--streaks-surface-box);
     border: 1px solid var(--streaks-surface-border);
     border-radius: 6px;
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: transform 0.15s ease, background 0.15s ease;
 }
 
 .vc-streaks-day-pill:hover {
-    transform: translateY(-2px);
+    transform: translateY(-1px);
     background: var(--streaks-surface-hover);
-    border-color: var(--border-strong, var(--streaks-surface-border));
 }
 
 .vc-streaks-day-letter {
     font-size: 10px;
     font-weight: 700;
-    color: var(--text-muted, #949ba4);
+    color: var(--text-muted);
 }
 
 .vc-streaks-pill-indicator {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background: var(--streaks-track-bg);
-    transition: all 0.2s ease;
 }
 
 .vc-streaks-day-pill.intensity-1 .vc-streaks-pill-indicator {
@@ -488,15 +416,13 @@
 .vc-streaks-day-pill.intensity-3 .vc-streaks-pill-indicator {
     background: var(--pill-color, var(--brand-experiment, #5865F2));
     opacity: 0.85;
-    box-shadow: 0 0 6px var(--pill-color, #5865F2);
 }
 .vc-streaks-day-pill.intensity-4 .vc-streaks-pill-indicator {
     background: var(--pill-color, var(--brand-experiment, #5865F2));
     opacity: 1;
-    box-shadow: 0 0 8px var(--pill-color, #5865F2);
 }
 
-/* 28-day 4x7 Matrix */
+/* 28-Day Punchcard Grid */
 .vc-streaks-punchcard-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -509,390 +435,39 @@
     background: var(--streaks-track-bg);
     border: 1px solid var(--streaks-surface-border);
     cursor: pointer;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    transition: transform 0.15s ease;
 }
 
 .vc-streaks-matrix-cell:hover {
-    transform: scale(1.25);
-    z-index: 2;
-    border-color: var(--border-strong, var(--interactive-active));
+    transform: scale(1.2);
 }
 
 .vc-streaks-matrix-cell.intensity-1 { background: var(--cell-color, var(--brand-experiment, #5865F2)); opacity: 0.35; }
 .vc-streaks-matrix-cell.intensity-2 { background: var(--cell-color, var(--brand-experiment, #5865F2)); opacity: 0.60; }
 .vc-streaks-matrix-cell.intensity-3 { background: var(--cell-color, var(--brand-experiment, #5865F2)); opacity: 0.85; }
-.vc-streaks-matrix-cell.intensity-4 {
-    background: var(--cell-color, var(--brand-experiment, #5865F2));
-    opacity: 1;
-    box-shadow: 0 0 6px var(--cell-color, #5865F2);
-}
+.vc-streaks-matrix-cell.intensity-4 { background: var(--cell-color, var(--brand-experiment, #5865F2)); opacity: 1; }
 
-/* --------------------------------------------------------------------------
-   Animated CSS Flame Effects
-   -------------------------------------------------------------------------- */
-.vc-streaks-flame-wrapper {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 3px 8px;
-    border-radius: 12px;
-    cursor: pointer;
-    user-select: none;
-    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.vc-streaks-flame-wrapper:hover {
-    transform: scale(1.06);
-}
-
-.vc-streaks-flame-svg {
-    width: 16px;
-    height: 16px;
-    position: relative;
-    z-index: 1;
-}
-
-.vc-streaks-flame-count {
-    font-size: 12px;
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-    z-index: 1;
-    color: currentColor;
-}
-
-/* Flame Sizes */
-.vc-streaks-flame-wrapper.size-small {
-    padding: 1px 5px;
-    gap: 3px;
-    border-radius: 8px;
-}
-.vc-streaks-flame-wrapper.size-small .vc-streaks-flame-svg {
-    width: 12px;
-    height: 12px;
-}
-.vc-streaks-flame-wrapper.size-small .vc-streaks-flame-count {
-    font-size: 10px;
-}
-
-.vc-streaks-flame-wrapper.size-large {
-    padding: 5px 12px;
-    gap: 8px;
-    border-radius: 16px;
-}
-.vc-streaks-flame-wrapper.size-large .vc-streaks-flame-svg {
-    width: 22px;
-    height: 22px;
-}
-.vc-streaks-flame-wrapper.size-large .vc-streaks-flame-count {
-    font-size: 14px;
-}
-
-/* Ember Tier (1-3 Days) */
-.vc-streaks-flame-wrapper.flame-ember {
-    background: rgba(226, 74, 0, 0.12);
-    border: 1px solid rgba(255, 164, 27, 0.35);
-    color: #FFA41B;
-}
-.vc-streaks-flame-wrapper.flame-ember .flame-outer {
-    fill: url(#flameGradEmber);
-    animation: vc-ember-flicker 2s infinite ease-in-out;
-}
-.vc-streaks-flame-wrapper.flame-ember .flame-inner {
-    fill: #FFE66D;
-}
-
-/* Blaze Tier (4-9 Days) */
-.vc-streaks-flame-wrapper.flame-blaze {
-    background: rgba(243, 134, 48, 0.18);
-    border: 1px solid rgba(243, 134, 48, 0.5);
-    color: #F38630;
-    box-shadow: 0 0 10px rgba(243, 134, 48, 0.25);
-}
-.vc-streaks-flame-wrapper.flame-blaze .flame-outer {
-    fill: url(#flameGradEmber);
-    animation: vc-blaze-pulse 1.3s infinite alternate ease-in-out;
-    transform-origin: bottom center;
-}
-.vc-streaks-flame-wrapper.flame-blaze .flame-inner {
-    fill: #FFF475;
-}
-
-/* Inferno Tier (10-29 Days) */
-.vc-streaks-flame-wrapper.flame-inferno {
-    background: rgba(112, 0, 255, 0.18);
-    border: 1px solid rgba(0, 240, 255, 0.5);
-    color: #00F0FF;
-    box-shadow: 0 0 12px rgba(112, 0, 255, 0.35);
-}
-.vc-streaks-flame-wrapper.flame-inferno .flame-outer {
-    fill: url(#flameGradInferno);
-    animation: vc-inferno-warp 1.1s infinite alternate ease-in-out;
-    transform-origin: bottom center;
-}
-.vc-streaks-flame-wrapper.flame-inferno .flame-inner {
-    fill: #FFFFFF;
-}
-
-/* Hypernova / Chroma Tier (30+ Days) */
-.vc-streaks-flame-wrapper.flame-hypernova {
-    background: linear-gradient(135deg, rgba(255, 0, 122, 0.2), rgba(0, 240, 255, 0.2));
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    color: #FFFFFF;
-    box-shadow: 0 0 16px rgba(255, 0, 122, 0.4);
-}
-.vc-streaks-flame-wrapper.flame-hypernova .flame-outer {
-    fill: url(#flameGradChroma);
-    animation: vc-hyper-chroma 3s linear infinite, vc-blaze-pulse 0.9s infinite alternate;
-    transform-origin: bottom center;
-}
-.vc-streaks-flame-wrapper.flame-hypernova .flame-inner {
-    fill: #FFFFFF;
-}
-
-/* Light theme flame overrides for high contrast and readability */
-.theme-light .vc-streaks-flame-wrapper.flame-ember {
-    background: rgba(226, 74, 0, 0.10);
-    border-color: rgba(226, 74, 0, 0.40);
-    color: #c2410c;
-}
-.theme-light .vc-streaks-flame-wrapper.flame-blaze {
-    background: rgba(234, 88, 12, 0.12);
-    border-color: rgba(234, 88, 12, 0.45);
-    color: #c2410c;
-    box-shadow: 0 0 6px rgba(234, 88, 12, 0.20);
-}
-.theme-light .vc-streaks-flame-wrapper.flame-inferno {
-    background: rgba(109, 40, 217, 0.10);
-    border-color: rgba(109, 40, 217, 0.40);
-    color: #6d28d9;
-    box-shadow: 0 0 6px rgba(109, 40, 217, 0.20);
-}
-.theme-light .vc-streaks-flame-wrapper.flame-hypernova {
-    background: rgba(219, 39, 119, 0.12);
-    border-color: rgba(219, 39, 119, 0.45);
-    color: #be185d;
-    box-shadow: 0 0 8px rgba(219, 39, 119, 0.25);
-}
-
-/* Keyframes */
-@keyframes vc-ember-flicker {
-    0%, 100% { transform: scaleY(1); opacity: 0.9; }
-    50% { transform: scaleY(1.05); opacity: 1; }
-}
-
-@keyframes vc-blaze-pulse {
-    0% { transform: scale(0.96) translateY(0.5px); }
-    100% { transform: scale(1.05) translateY(-0.5px); }
-}
-
-@keyframes vc-inferno-warp {
-    0% { transform: scaleY(0.94) skewX(-2deg); }
-    100% { transform: scaleY(1.07) skewX(2deg); }
-}
-
-@keyframes vc-hyper-chroma {
-    0% { filter: hue-rotate(0deg); }
-    100% { filter: hue-rotate(360deg); }
-}
-
-/* Floating Spark Particles */
-.vc-streaks-spark-particles {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-}
-
-.vc-streaks-spark-particles .spark {
-    position: absolute;
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-    background: #FFF;
-    opacity: 0;
-}
-
-.spark-1 {
-    left: 20%;
-    bottom: 40%;
-    animation: vc-spark-rise 1.4s infinite ease-out;
-}
-.spark-2 {
-    left: 50%;
-    bottom: 30%;
-    animation: vc-spark-rise 1.8s infinite 0.4s ease-out;
-}
-.spark-3 {
-    left: 75%;
-    bottom: 35%;
-    animation: vc-spark-rise 1.6s infinite 0.8s ease-out;
-}
-
-@keyframes vc-spark-rise {
-    0% { transform: translateY(0) scale(0.6); opacity: 0; }
-    40% { opacity: 1; }
-    100% { transform: translateY(-16px) scale(0); opacity: 0; }
-}
-
-/* --------------------------------------------------------------------------
-   Celebration Level-Up Toast
-   -------------------------------------------------------------------------- */
-.vc-streaks-celebration-toast {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    z-index: 10002;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 16px;
-    background: var(--background-floating, rgba(17, 18, 20, 0.94));
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.12));
-    border-radius: 12px;
-    box-shadow: var(--elevation-high, 0 10px 30px rgba(0, 0, 0, 0.35));
-    max-width: 360px;
-    cursor: pointer;
-    overflow: hidden;
-    animation: vc-toast-slide-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes vc-toast-slide-in {
-    from {
-        opacity: 0;
-        transform: translateY(20px) scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-.vc-streaks-toast-ambient {
-    position: absolute;
-    width: 80px;
-    height: 80px;
-    left: -20px;
-    top: -20px;
-    border-radius: 50%;
-    filter: blur(28px);
-    opacity: 0.35;
-    pointer-events: none;
-}
-
-.vc-streaks-toast-icon-frame {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: var(--streaks-surface-box);
-    border: 1.5px solid currentColor;
-    flex-shrink: 0;
-}
-
-.vc-streaks-toast-icon svg {
-    width: 24px;
-    height: 24px;
-}
-
-.vc-streaks-toast-body {
+/* Timeline Footer */
+.vc-streaks-footer-timeline {
     display: flex;
     flex-direction: column;
     gap: 2px;
-    flex-grow: 1;
-}
-
-.vc-streaks-toast-headline {
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.05em;
-    color: var(--streaks-tier-gold, #FEE75C);
-}
-
-.vc-streaks-toast-message {
-    font-size: 13px;
-    color: var(--header-primary, #ffffff);
-    line-height: 17px;
-}
-
-.vc-streaks-toast-tagline {
-    font-size: 11px;
-    font-style: italic;
-    color: var(--text-muted, #949ba4);
-}
-
-.vc-streaks-toast-close {
-    background: none;
-    border: none;
-    color: var(--interactive-normal, #949ba4);
-    font-size: 14px;
-    cursor: pointer;
-    padding: 4px;
-    line-height: 1;
-    border-radius: 4px;
-    transition: background 0.15s ease, color 0.15s ease;
-}
-
-.vc-streaks-toast-close:hover {
-    color: var(--interactive-active, #ffffff);
-    background: var(--streaks-surface-hover);
-}
-
-/* Confetti Cascade inside Toast */
-.vc-streaks-confetti-container {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-}
-
-.confetti {
-    position: absolute;
-    width: 4px;
-    height: 8px;
-    border-radius: 1px;
-    opacity: 0;
-}
-
-.c1 { left: 20%; top: 0; animation: vc-confetti-fall 1.8s ease-out 0.1s; }
-.c2 { left: 45%; top: 0; animation: vc-confetti-fall 1.6s ease-out 0.2s; }
-.c3 { left: 70%; top: 0; animation: vc-confetti-fall 2.0s ease-out 0.05s; }
-.c4 { left: 85%; top: 0; animation: vc-confetti-fall 1.7s ease-out 0.25s; }
-
-@keyframes vc-confetti-fall {
-    0% { transform: translateY(-5px) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(60px) rotate(360deg); opacity: 0; }
-}
-
-/* --------------------------------------------------------------------------
-   Footer / Provenance Info
-   -------------------------------------------------------------------------- */
-.vc-streaks-footer {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    padding-top: 8px;
+    padding-top: 6px;
     border-top: 1px solid var(--streaks-surface-border);
 }
 
-.vc-streaks-last-interacted {
-    font-size: 12px;
-    color: var(--text-normal, #dbdee1);
+.vc-streaks-footer-item {
+    font-size: 11px;
+    color: var(--text-normal);
 }
 
-.vc-streaks-first-seen {
+.vc-streaks-footer-sub {
     font-size: 11px;
-    color: var(--text-muted, #949ba4);
+    color: var(--text-muted);
 }
 
 /* --------------------------------------------------------------------------
-   Voice Channel User Badge / Flame Icon
+   Voice Channel User Badge
    -------------------------------------------------------------------------- */
 .vc-streaks-voice-icon {
     display: inline-flex;
@@ -900,153 +475,150 @@
     justify-content: center;
     margin-left: 6px;
     vertical-align: middle;
+    flex-shrink: 0;
     cursor: pointer;
-    transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s ease;
+    transition: transform 0.15s ease;
 }
 
 .vc-streaks-voice-icon:hover {
-    transform: scale(1.22);
+    transform: scale(1.2);
+}
+
+.vc-streaks-voice-tier-star {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+}
+
+.vc-streaks-voice-tier-star svg {
+    width: 14px;
+    height: 14px;
+    display: block;
 }
 
 /* --------------------------------------------------------------------------
-   Full Profile Modal & Header Badges
+   Member List Decorator Badge
+   -------------------------------------------------------------------------- */
+.vc-streaks-memberlist-badge {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 4px;
+    vertical-align: middle;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.vc-streaks-memberlist-star {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 13px;
+    height: 13px;
+}
+
+.vc-streaks-memberlist-star svg {
+    width: 13px;
+    height: 13px;
+    display: block;
+}
+
+/* --------------------------------------------------------------------------
+   Header Pill (Full Modal & Popout Header next to Pronouns)
    -------------------------------------------------------------------------- */
 .vc-streaks-header-badge {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 5px;
     padding: 2px 8px;
+    margin-left: 6px;
     border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
+    border: 1px solid currentColor;
     background: var(--streaks-surface-box);
-    border: 1px solid var(--streaks-surface-border);
-    cursor: pointer;
-    margin-right: 6px;
-    transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 14px;
+    vertical-align: middle;
+    transition: transform 0.15s ease, background 0.15s ease;
 }
 
 .vc-streaks-header-badge:hover {
-    background: var(--streaks-surface-hover);
-    border-color: var(--border-strong, var(--streaks-surface-border));
     transform: translateY(-1px);
+    background: var(--streaks-surface-hover);
 }
 
-.vc-streaks-modal-tab-content {
-    padding: 16px;
-    box-sizing: border-box;
-    width: 100%;
+.vc-streaks-header-icon svg {
+    width: 12px;
+    height: 12px;
+    display: block;
 }
 
-.vc-streaks-modal-tab-content .vc-streaks-card {
-    background: var(--background-secondary, var(--background-floating));
-    border: 1px solid var(--streaks-card-border);
-    box-shadow: var(--streaks-card-shadow);
+.vc-streaks-header-tier {
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.vc-streaks-header-flame {
+    font-weight: 700;
+    color: #f38630;
 }
 
 /* --------------------------------------------------------------------------
-   Dev Tooling & Spoof Controls
+   Badge Tooltip
    -------------------------------------------------------------------------- */
-.vc-streaks-dev-btn {
-    background: var(--brand-experiment, #5865f2);
-    border: none;
-    color: #ffffff;
-    font-size: 11px;
+.vc-streaks-badge-tooltip,
+.vc-streaks-tooltip-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 2px 4px;
+}
+
+.vc-streaks-tooltip-title,
+.vc-streaks-tooltip-bold {
     font-weight: 700;
-    padding: 6px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.15s ease;
+    font-size: 13px;
+    color: var(--header-primary);
 }
 
-.vc-streaks-dev-btn:hover {
-    background: var(--brand-experiment-560, #4752c4);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(88, 101, 242, 0.35);
-}
-
-.vc-streaks-dev-cycle-btn {
-    background: var(--streaks-surface-box);
-    border: 1px solid var(--streaks-surface-border);
-    color: var(--interactive-normal, #949ba4);
+.vc-streaks-tooltip-desc,
+.vc-streaks-tooltip-dim {
     font-size: 11px;
-    font-weight: 700;
-    padding: 2px 6px;
-    border-radius: 4px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s ease;
+    color: var(--text-muted);
 }
 
-.vc-streaks-dev-cycle-btn:hover {
-    background: var(--streaks-surface-hover);
-    color: var(--interactive-active, #ffffff);
-    border-color: var(--border-strong, var(--streaks-surface-border));
-    transform: scale(1.1);
+.vc-streaks-tooltip-streak {
+    font-size: 11px;
+    font-weight: 600;
+    color: #f38630;
+    margin-top: 2px;
 }
 
-/* ==========================================================================
-   Discord-Native Profile Glassmorphism (Nitro & Themed Profiles)
-   ========================================================================== */
-[class*="userProfileOuterThemed"] .vc-streaks-card,
-[class*="userProfileOuter"] .vc-streaks-card,
-[class*="userProfileModal"] .vc-streaks-card,
-[class*="userProfile"] .vc-streaks-card,
-[style*="--profile-"] .vc-streaks-card,
-[style*="--profile-gradient"] .vc-streaks-card {
-    background: var(--profile-body-background-color, rgba(255, 255, 255, 0.45));
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+/* --------------------------------------------------------------------------
+   Full Profile Modal Tab
+   -------------------------------------------------------------------------- */
+.vc-streaks-modal-tab-content {
+    padding: 16px 20px;
+    box-sizing: border-box;
+    width: 100%;
+    overflow-y: auto;
 }
 
-.theme-dark[class*="userProfileOuterThemed"] .vc-streaks-card,
-.theme-dark[class*="userProfileOuter"] .vc-streaks-card,
-.theme-dark[class*="userProfileModal"] .vc-streaks-card,
-.theme-dark[class*="userProfile"] .vc-streaks-card,
-.theme-dark[style*="--profile-"] .vc-streaks-card,
-.theme-dark[style*="--profile-gradient"] .vc-streaks-card,
-.theme-midnight[class*="userProfileOuterThemed"] .vc-streaks-card,
-.theme-midnight[style*="--profile-gradient"] .vc-streaks-card {
-    background: var(--profile-body-background-color, rgba(0, 0, 0, 0.28));
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.24);
+.vc-streaks-modal-tab-content .vc-streaks-card {
+    background: var(--background-secondary-alt);
+    border: 1px solid var(--streaks-card-border);
+    max-width: 680px;
+    margin: 0 auto;
 }
 
-[class*="userProfileOuterThemed"] .vc-streaks-stat-box,
-[style*="--profile-"] .vc-streaks-stat-box,
-[style*="--profile-gradient"] .vc-streaks-stat-box {
-    background: rgba(255, 255, 255, 0.30);
-    border: 1px solid rgba(255, 255, 255, 0.25);
+.vc-streaks-modal-v2-tab-bar {
+    --space-xl: 12px;
 }
 
-.theme-dark[class*="userProfileOuterThemed"] .vc-streaks-stat-box,
-.theme-dark[style*="--profile-"] .vc-streaks-stat-box,
-.theme-dark[style*="--profile-gradient"] .vc-streaks-stat-box {
-    background: rgba(0, 0, 0, 0.22);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-[class*="userProfileOuterThemed"] .vc-streaks-card-empty,
-[style*="--profile-"] .vc-streaks-card-empty {
-    background: rgba(255, 255, 255, 0.25);
-    border-color: rgba(255, 255, 255, 0.35);
-}
-
-.theme-dark[class*="userProfileOuterThemed"] .vc-streaks-card-empty,
-.theme-dark[style*="--profile-"] .vc-streaks-card-empty {
-    background: rgba(0, 0, 0, 0.20);
-    border-color: rgba(255, 255, 255, 0.08);
-}
-
-/* ==========================================================================
-   Streak Flame Animated Component & Sizing
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   Streak Flame Animated Component
+   -------------------------------------------------------------------------- */
 .vc-streaks-flame-wrapper {
     display: inline-flex;
     align-items: center;
@@ -1097,7 +669,6 @@
     overflow: visible;
 }
 
-/* Flame Tier Visual Effects */
 .flame-ember .flame-outer {
     fill: url(#flameGradEmber);
     animation: vcStreaksFlicker 1.8s ease-in-out infinite alternate;
@@ -1109,7 +680,6 @@
 .flame-blaze .flame-outer {
     fill: url(#flameGradEmber);
     animation: vcStreaksFlicker 1.2s ease-in-out infinite alternate;
-    filter: drop-shadow(0 0 3px #FFA41B);
 }
 .flame-blaze .flame-inner {
     fill: #FFFFFF;
@@ -1118,7 +688,6 @@
 .flame-inferno .flame-outer {
     fill: url(#flameGradInferno);
     animation: vcStreaksInferno 1.5s ease-in-out infinite alternate;
-    filter: drop-shadow(0 0 4px #00F0FF);
 }
 .flame-inferno .flame-inner {
     fill: #FFFFFF;
@@ -1127,7 +696,6 @@
 .flame-hypernova .flame-outer {
     fill: url(#flameGradChroma);
     animation: vcStreaksHypernova 2s linear infinite;
-    filter: drop-shadow(0 0 5px rgba(185, 131, 255, 0.7));
 }
 .flame-hypernova .flame-inner {
     fill: #FFFFFF;
@@ -1139,113 +707,14 @@
 }
 
 @keyframes vcStreaksInferno {
-    0% { transform: scale(0.95); filter: drop-shadow(0 0 3px #00F0FF); }
-    100% { transform: scale(1.06); filter: drop-shadow(0 0 7px #FF007A); }
+    0% { transform: scale(0.95); }
+    100% { transform: scale(1.06); }
 }
 
 @keyframes vcStreaksHypernova {
-    0% { filter: hue-rotate(0deg) drop-shadow(0 0 4px #FF6B6B); }
-    50% { filter: hue-rotate(180deg) drop-shadow(0 0 6px #00F0FF); }
-    100% { filter: hue-rotate(360deg) drop-shadow(0 0 4px #FF6B6B); }
+    0% { filter: hue-rotate(0deg); }
+    50% { filter: hue-rotate(180deg); }
+    100% { filter: hue-rotate(360deg); }
 }
 
-/* ==========================================================================
-   Voice Channel User Badge
-   ========================================================================== */
-.vc-streaks-voice-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 6px;
-    vertical-align: middle;
-    flex-shrink: 0;
-    transition: transform 0.15s ease;
-}
-
-.vc-streaks-voice-icon:hover {
-    transform: scale(1.2);
-}
-
-.vc-streaks-voice-tier-star svg {
-    width: 14px;
-    height: 14px;
-    display: block;
-    filter: drop-shadow(0 0 3px currentColor);
-}
-
-/* ==========================================================================
-   Member List Decorator Badge
-   ========================================================================== */
-.vc-streaks-memberlist-badge {
-    display: inline-flex;
-    align-items: center;
-    margin-left: 4px;
-    vertical-align: middle;
-    flex-shrink: 0;
-}
-
-.vc-streaks-memberlist-star svg {
-    width: 13px;
-    height: 13px;
-    display: block;
-    filter: drop-shadow(0 0 2px currentColor);
-}
-
-/* ==========================================================================
-   Header Pill (Full Modal & Popout Header next to Pronouns)
-   ========================================================================== */
-.vc-streaks-header-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 2px 8px;
-    margin-left: 6px;
-    border-radius: 12px;
-    border: 1px solid currentColor;
-    background: rgba(0, 0, 0, 0.22);
-    font-size: 11px;
-    font-weight: 600;
-    line-height: 14px;
-    vertical-align: middle;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    transition: transform 0.15s ease, background 0.15s ease;
-}
-
-.theme-light .vc-streaks-header-badge {
-    background: rgba(255, 255, 255, 0.55);
-    border-color: rgba(0, 0, 0, 0.15);
-}
-
-.vc-streaks-header-badge:hover {
-    transform: translateY(-1px);
-    background: rgba(255, 255, 255, 0.15);
-}
-
-.theme-light .vc-streaks-header-badge:hover {
-    background: rgba(255, 255, 255, 0.75);
-}
-
-.vc-streaks-header-icon svg {
-    width: 12px;
-    height: 12px;
-    display: block;
-}
-
-.vc-streaks-header-tier {
-    font-size: 11px;
-    font-weight: 600;
-}
-
-.vc-streaks-header-flame {
-    font-weight: 700;
-    color: #f38630;
-}
-
-/* ==========================================================================
-   Full Profile Modal Tab Bar & Spacing
-   ========================================================================== */
-.vc-streaks-modal-v2-tab-bar {
-    --space-xl: 12px;
-}
 
