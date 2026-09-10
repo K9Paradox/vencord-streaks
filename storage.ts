@@ -1,4 +1,5 @@
 import * as DataStore from "@api/DataStore";
+import { settings } from "./settings";
 import { InteractionRecord, InteractionType } from "./types";
 
 const STORAGE_KEY = "Streaks_UserData";
@@ -96,11 +97,8 @@ export function getRecord(userId: string): InteractionRecord | undefined {
     if (cache[userId]) return cache[userId];
 
     try {
-        // @ts-ignore
-        const devMode = (window as any).StreaksDevMode || (window as any).Vencord?.Plugins?.plugins?.Streaks?.settings?.store?.devTestingMode;
-        if (devMode) {
-            // @ts-ignore
-            const tier = (window as any).StreaksDevTier || (window as any).Vencord?.Plugins?.plugins?.Streaks?.settings?.store?.devTestingTier || "Gold";
+        if (settings.store?.devTestingMode) {
+            const tier = settings.store?.devTestingTier || "Gold";
             return createSpoofedRecord(userId, tier);
         }
     } catch {}

@@ -7,7 +7,7 @@ import { StreakFlame } from "./StreakFlame";
 interface StreakBadgeProps {
     userId: string;
     record?: InteractionRecord;
-    variant?: "default" | "voice" | "header";
+    variant?: "default" | "voice" | "header" | "memberList";
 }
 
 export function StreakBadge({ userId, record: propRecord, variant = "default" }: StreakBadgeProps) {
@@ -39,15 +39,37 @@ export function StreakBadge({ userId, record: propRecord, variant = "default" }:
                         {...props}
                         className="vc-streaks-voice-icon"
                         style={{
-                            color: currentTier.color,
-                            filter: `drop-shadow(0 0 3px ${currentTier.glowColor})`
+                            color: currentTier.color
                         }}
                     >
                         {streakCount > 0 ? (
                             <StreakFlame streakDays={streakCount} size="small" showLabel={false} />
                         ) : (
                             <span
-                                style={{ width: "14px", height: "14px", color: currentTier.color, display: "inline-block" }}
+                                className="vc-streaks-voice-tier-star"
+                                dangerouslySetInnerHTML={{ __html: currentTier.iconSvg }}
+                            />
+                        )}
+                    </span>
+                )}
+            </Tooltip>
+        );
+    }
+
+    if (variant === "memberList") {
+        return (
+            <Tooltip text={tooltipText}>
+                {(props: any) => (
+                    <span
+                        {...props}
+                        className="vc-streaks-memberlist-badge"
+                        style={{ color: currentTier.color }}
+                    >
+                        {streakCount > 0 ? (
+                            <StreakFlame streakDays={streakCount} size="small" showLabel={true} />
+                        ) : (
+                            <span
+                                className="vc-streaks-memberlist-star"
                                 dangerouslySetInnerHTML={{ __html: currentTier.iconSvg }}
                             />
                         )}
@@ -66,16 +88,15 @@ export function StreakBadge({ userId, record: propRecord, variant = "default" }:
                         className="vc-streaks-header-badge"
                         style={{
                             borderColor: currentTier.color,
-                            boxShadow: `0 0 6px ${currentTier.glowColor}`,
                             color: currentTier.color
                         }}
                     >
                         <span
-                            style={{ width: "14px", height: "14px", display: "inline-block" }}
+                            className="vc-streaks-header-icon"
                             dangerouslySetInnerHTML={{ __html: currentTier.iconSvg }}
                         />
-                        <span>{currentTier.name}</span>
-                        {streakCount > 0 && <span>🔥 {streakCount}d</span>}
+                        <span className="vc-streaks-header-tier">{currentTier.name}</span>
+                        {streakCount > 0 && <span className="vc-streaks-header-flame">🔥 {streakCount}d</span>}
                     </div>
                 )}
             </Tooltip>

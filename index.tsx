@@ -1,11 +1,11 @@
 import { addMemberListDecorator, removeMemberListDecorator } from "@api/MemberListDecorators";
-import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
-import definePlugin, { OptionType } from "@utils/types";
+import definePlugin from "@utils/types";
 import { React } from "@webpack/common";
 import { calculateFamiliarity } from "./badges";
 import { StreakBadge } from "./components/StreakBadge";
 import { StreakCard } from "./components/StreakCard";
+import { settings } from "./settings";
 import {
     clearAllRecords,
     clearUserRecord,
@@ -18,61 +18,7 @@ import {
 import { startTracking, stopTracking } from "./tracker";
 import "./styles.css";
 
-export const settings = definePluginSettings({
-    trackVoice: {
-        type: OptionType.BOOLEAN,
-        description: "Track time spent together in voice channels",
-        default: true
-    },
-    trackDms: {
-        type: OptionType.BOOLEAN,
-        description: "Track direct messages exchanged",
-        default: true
-    },
-    showInPopout: {
-        type: OptionType.BOOLEAN,
-        description: "Show interaction streak and familiarity card in User Popout",
-        default: true
-    },
-    showInProfileModal: {
-        type: OptionType.BOOLEAN,
-        description: "Show Streaks tab and header badge in Full Profile Modal",
-        default: true
-    },
-    showInVoiceChannel: {
-        type: OptionType.BOOLEAN,
-        description: "Show streak icon next to usernames in Voice Channels",
-        default: true
-    },
-    showInMemberList: {
-        type: OptionType.BOOLEAN,
-        description: "Show mini streak badge in Member List and DM sidebar",
-        default: true
-    },
-    minSessionDurationSeconds: {
-        type: OptionType.NUMBER,
-        description: "Minimum seconds in VC together to count as a session",
-        default: 60
-    },
-    devTestingMode: {
-        type: OptionType.BOOLEAN,
-        description: "🛠️ [DEV TESTING] Spoof interaction data for unrecorded users to test UI",
-        default: false
-    },
-    devTestingTier: {
-        type: OptionType.SELECT,
-        description: "🛠️ [DEV TESTING] Default tier for spoofed users",
-        options: [
-            { label: "Bronze (Spark)", value: "Bronze" },
-            { label: "Silver (Familiar)", value: "Silver" },
-            { label: "Gold (Regular)", value: "Gold", default: true },
-            { label: "Emerald (Companion)", value: "Emerald" },
-            { label: "Amethyst (Confidant)", value: "Amethyst" },
-            { label: "Ruby (Kinship)", value: "Ruby" },
-            { label: "Diamond (Eternal)", value: "Diamond" }
-        ]
-    }
-});
+export { settings };
 
 const renderProfileComponent = ErrorBoundary.wrap(
     ({ user }: { user?: { id: string }; isSideBar?: boolean }) => {
@@ -144,7 +90,7 @@ export default definePlugin({
             // Full Profile Modal & Popout Header: places badge next to display name & pronouns
             find: "#{intl::USER_PROFILE_PRONOUNS}",
             replacement: {
-                match: /(user:(\i).{0,100}onClickDisplayName:\i,trailing:)(\i)/,
+                match: /(user:(\i).{0,100}onClickDisplayName:\i,trailing:)([^,}]+)/,
                 replace: "$1[$self.renderHeaderBadge($2?.id),$3]"
             },
             predicate: () => settings.store.showInProfileModal
@@ -173,8 +119,8 @@ export default definePlugin({
             find: "#{intl::GUEST_NAME_SUFFIX})]",
             replacement: [
                 {
-                    match: /(#{intl::GUEST_NAME_SUFFIX}.{0,50}?)""\](?<=guildId:(\i),.+?user:(\i).+?)/,
-                    replace: '$1"",$self.renderVoiceBadge($3?.id)]'
+                    match: /(user:(\i).{0,250}?#{intl::GUEST_NAME_SUFFIX}.{0,50}?"")(\])/,
+                    replace: '$1,$self.renderVoiceBadge($2?.id)$3'
                 }
             ],
             predicate: () => settings.store.showInVoiceChannel
@@ -190,7 +136,9 @@ export default definePlugin({
         try {
             if (!props?.user?.id || props.user.bot) return props;
             const section = { text: "Streaks", section: "STREAKS" };
-            return { ...props, items: [...props.items, section] };
+            const items = [...(props.items || [])];
+            items.splice(1, 0, section);
+            return { ...props, items };
         } catch (e) {
             console.error("[Streaks] Failed to append profile tab:", e);
         }
@@ -206,7 +154,7 @@ export default definePlugin({
         if (settings.store.showInMemberList) {
             addMemberListDecorator("Streaks", ({ user }) => {
                 if (!user || user.bot) return null;
-                return <StreakBadge userId={user.id} />;
+                return <StreakBadge userId={user.id} variant="memberList" />;
             });
         }
 

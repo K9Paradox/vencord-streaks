@@ -986,3 +986,266 @@
     border-color: var(--border-strong, var(--streaks-surface-border));
     transform: scale(1.1);
 }
+
+/* ==========================================================================
+   Discord-Native Profile Glassmorphism (Nitro & Themed Profiles)
+   ========================================================================== */
+[class*="userProfileOuterThemed"] .vc-streaks-card,
+[class*="userProfileOuter"] .vc-streaks-card,
+[class*="userProfileModal"] .vc-streaks-card,
+[class*="userProfile"] .vc-streaks-card,
+[style*="--profile-"] .vc-streaks-card,
+[style*="--profile-gradient"] .vc-streaks-card {
+    background: var(--profile-body-background-color, rgba(255, 255, 255, 0.45));
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.theme-dark[class*="userProfileOuterThemed"] .vc-streaks-card,
+.theme-dark[class*="userProfileOuter"] .vc-streaks-card,
+.theme-dark[class*="userProfileModal"] .vc-streaks-card,
+.theme-dark[class*="userProfile"] .vc-streaks-card,
+.theme-dark[style*="--profile-"] .vc-streaks-card,
+.theme-dark[style*="--profile-gradient"] .vc-streaks-card,
+.theme-midnight[class*="userProfileOuterThemed"] .vc-streaks-card,
+.theme-midnight[style*="--profile-gradient"] .vc-streaks-card {
+    background: var(--profile-body-background-color, rgba(0, 0, 0, 0.28));
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.24);
+}
+
+[class*="userProfileOuterThemed"] .vc-streaks-stat-box,
+[style*="--profile-"] .vc-streaks-stat-box,
+[style*="--profile-gradient"] .vc-streaks-stat-box {
+    background: rgba(255, 255, 255, 0.30);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.theme-dark[class*="userProfileOuterThemed"] .vc-streaks-stat-box,
+.theme-dark[style*="--profile-"] .vc-streaks-stat-box,
+.theme-dark[style*="--profile-gradient"] .vc-streaks-stat-box {
+    background: rgba(0, 0, 0, 0.22);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+[class*="userProfileOuterThemed"] .vc-streaks-card-empty,
+[style*="--profile-"] .vc-streaks-card-empty {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+.theme-dark[class*="userProfileOuterThemed"] .vc-streaks-card-empty,
+.theme-dark[style*="--profile-"] .vc-streaks-card-empty {
+    background: rgba(0, 0, 0, 0.20);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ==========================================================================
+   Streak Flame Animated Component & Sizing
+   ========================================================================== */
+.vc-streaks-flame-wrapper {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    user-select: none;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.vc-streaks-flame-wrapper.size-small {
+    gap: 3px;
+    height: 16px;
+}
+
+.vc-streaks-flame-wrapper.size-small .vc-streaks-flame-svg {
+    width: 14px;
+    height: 14px;
+}
+
+.vc-streaks-flame-wrapper.size-small .vc-streaks-flame-count {
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 14px;
+}
+
+.vc-streaks-flame-wrapper.size-medium {
+    gap: 4px;
+    height: 20px;
+    padding: 1px 6px;
+    border-radius: 10px;
+    background: var(--streaks-surface-box);
+    border: 1px solid var(--streaks-surface-border);
+}
+
+.vc-streaks-flame-wrapper.size-medium .vc-streaks-flame-svg {
+    width: 16px;
+    height: 16px;
+}
+
+.vc-streaks-flame-wrapper.size-medium .vc-streaks-flame-count {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.vc-streaks-flame-svg {
+    display: block;
+    flex-shrink: 0;
+    overflow: visible;
+}
+
+/* Flame Tier Visual Effects */
+.flame-ember .flame-outer {
+    fill: url(#flameGradEmber);
+    animation: vcStreaksFlicker 1.8s ease-in-out infinite alternate;
+}
+.flame-ember .flame-inner {
+    fill: #FFF275;
+}
+
+.flame-blaze .flame-outer {
+    fill: url(#flameGradEmber);
+    animation: vcStreaksFlicker 1.2s ease-in-out infinite alternate;
+    filter: drop-shadow(0 0 3px #FFA41B);
+}
+.flame-blaze .flame-inner {
+    fill: #FFFFFF;
+}
+
+.flame-inferno .flame-outer {
+    fill: url(#flameGradInferno);
+    animation: vcStreaksInferno 1.5s ease-in-out infinite alternate;
+    filter: drop-shadow(0 0 4px #00F0FF);
+}
+.flame-inferno .flame-inner {
+    fill: #FFFFFF;
+}
+
+.flame-hypernova .flame-outer {
+    fill: url(#flameGradChroma);
+    animation: vcStreaksHypernova 2s linear infinite;
+    filter: drop-shadow(0 0 5px rgba(185, 131, 255, 0.7));
+}
+.flame-hypernova .flame-inner {
+    fill: #FFFFFF;
+}
+
+@keyframes vcStreaksFlicker {
+    0% { transform: scale(0.97) rotate(-1deg); }
+    100% { transform: scale(1.03) rotate(1deg); }
+}
+
+@keyframes vcStreaksInferno {
+    0% { transform: scale(0.95); filter: drop-shadow(0 0 3px #00F0FF); }
+    100% { transform: scale(1.06); filter: drop-shadow(0 0 7px #FF007A); }
+}
+
+@keyframes vcStreaksHypernova {
+    0% { filter: hue-rotate(0deg) drop-shadow(0 0 4px #FF6B6B); }
+    50% { filter: hue-rotate(180deg) drop-shadow(0 0 6px #00F0FF); }
+    100% { filter: hue-rotate(360deg) drop-shadow(0 0 4px #FF6B6B); }
+}
+
+/* ==========================================================================
+   Voice Channel User Badge
+   ========================================================================== */
+.vc-streaks-voice-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 6px;
+    vertical-align: middle;
+    flex-shrink: 0;
+    transition: transform 0.15s ease;
+}
+
+.vc-streaks-voice-icon:hover {
+    transform: scale(1.2);
+}
+
+.vc-streaks-voice-tier-star svg {
+    width: 14px;
+    height: 14px;
+    display: block;
+    filter: drop-shadow(0 0 3px currentColor);
+}
+
+/* ==========================================================================
+   Member List Decorator Badge
+   ========================================================================== */
+.vc-streaks-memberlist-badge {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 4px;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+.vc-streaks-memberlist-star svg {
+    width: 13px;
+    height: 13px;
+    display: block;
+    filter: drop-shadow(0 0 2px currentColor);
+}
+
+/* ==========================================================================
+   Header Pill (Full Modal & Popout Header next to Pronouns)
+   ========================================================================== */
+.vc-streaks-header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 2px 8px;
+    margin-left: 6px;
+    border-radius: 12px;
+    border: 1px solid currentColor;
+    background: rgba(0, 0, 0, 0.22);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 14px;
+    vertical-align: middle;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.theme-light .vc-streaks-header-badge {
+    background: rgba(255, 255, 255, 0.55);
+    border-color: rgba(0, 0, 0, 0.15);
+}
+
+.vc-streaks-header-badge:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.theme-light .vc-streaks-header-badge:hover {
+    background: rgba(255, 255, 255, 0.75);
+}
+
+.vc-streaks-header-icon svg {
+    width: 12px;
+    height: 12px;
+    display: block;
+}
+
+.vc-streaks-header-tier {
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.vc-streaks-header-flame {
+    font-weight: 700;
+    color: #f38630;
+}
+
+/* ==========================================================================
+   Full Profile Modal Tab Bar & Spacing
+   ========================================================================== */
+.vc-streaks-modal-v2-tab-bar {
+    --space-xl: 12px;
+}
+
