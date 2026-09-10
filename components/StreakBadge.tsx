@@ -2,6 +2,7 @@ import { React, Tooltip } from "@webpack/common";
 import { calculateFamiliarity, isStreakActive } from "../badges";
 import { getRecord } from "../storage";
 import { InteractionRecord } from "../types";
+import { StreakFlame } from "./StreakFlame";
 
 interface StreakBadgeProps {
     userId: string;
@@ -10,6 +11,9 @@ interface StreakBadgeProps {
 
 export function StreakBadge({ userId, record: propRecord }: StreakBadgeProps) {
     const record = propRecord || getRecord(userId);
+    if (!record || (record.voice.totalSeconds === 0 && record.dms.totalMessages === 0)) {
+        return null;
+    }
     const { currentTier } = calculateFamiliarity(record);
     const streakActive = isStreakActive(record?.streak?.lastActiveDate);
     const streakCount = streakActive ? (record?.streak?.current || 0) : 0;
@@ -46,9 +50,7 @@ export function StreakBadge({ userId, record: propRecord }: StreakBadgeProps) {
                         {currentTier.name}
                     </span>
                     {streakCount > 0 && (
-                        <span className="vc-streaks-badge-flame">
-                            🔥 {streakCount}
-                        </span>
+                        <StreakFlame streakDays={streakCount} size="small" />
                     )}
                 </div>
             )}

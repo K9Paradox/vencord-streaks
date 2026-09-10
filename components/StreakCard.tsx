@@ -1,12 +1,18 @@
 import { React } from "@webpack/common";
 import { calculateFamiliarity, formatDuration, formatRelativeTime, isStreakActive } from "../badges";
 import { getRecord } from "../storage";
+import { StreakFlame } from "./StreakFlame";
+import { StreakPunchcard } from "./StreakPunchcard";
 
 interface StreakCardProps {
     userId: string;
+    defaultExpanded?: boolean;
 }
 
-export function StreakCard({ userId }: StreakCardProps) {
+export function StreakCard({ userId, defaultExpanded = false }: StreakCardProps) {
+    const [isExpanded, setIsExpanded] = React.useState(defaultExpanded);
+    const [punchcardMode, setPunchcardMode] = React.useState<"week" | "month">("week");
+
     const record = getRecord(userId);
     const { currentTier, nextTier, progressPercentage, totalHours, totalSessions } = calculateFamiliarity(record);
     const streakActive = isStreakActive(record?.streak?.lastActiveDate);
@@ -19,7 +25,7 @@ export function StreakCard({ userId }: StreakCardProps) {
                     <span className="vc-streaks-title">Interaction Streaks</span>
                 </div>
                 <div className="vc-streaks-empty-text">
-                    No mutual VC or DM interactions recorded yet. Jump in a call together to start your streak!
+                    No mutual VC or DM interactions recorded yet. Jump in a call together to ignite your streak!
                 </div>
             </div>
         );
@@ -38,7 +44,7 @@ export function StreakCard({ userId }: StreakCardProps) {
 
     return (
         <div className="vc-streaks-card">
-            {/* Header row */}
+            {/* Header row / Compact bar */}
             <div className="vc-streaks-header">
                 <div className="vc-streaks-tier-info">
                     <span
@@ -54,11 +60,20 @@ export function StreakCard({ userId }: StreakCardProps) {
                     </div>
                 </div>
 
-                {currentStreak > 0 && (
-                    <div className="vc-streaks-flame-pill">
-                        🔥 {currentStreak} {currentStreak === 1 ? "day" : "days"}
-                    </div>
-                )}
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    {currentStreak > 0 && (
+                        <StreakFlame streakDays={currentStreak} size="medium" />
+                    )}
+                    <button
+                        className={`vc-streaks-toggle-btn ${isExpanded ? "expanded" : ""}`}
+                        onClick={() => setIsExpanded(!isExpanded)}
+                        title={isExpanded ? "Collapse view" : "Expand telemetry"}
+                    >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
 
             {/* Next tier progress bar */}
@@ -74,39 +89,69 @@ export function StreakCard({ userId }: StreakCardProps) {
                             style={{
                                 width: `${progressPercentage}%`,
                                 backgroundColor: nextTier.color,
-                                boxShadow: `0 0 6px ${nextTier.glowColor}`
+                                boxShadow: `0 0 8px ${nextTier.glowColor}`
                             }}
                         />
                     </div>
                 </div>
             )}
 
-            {/* Stats Grid */}
-            <div className="vc-streaks-stats-grid">
-                <div className="vc-streaks-stat-box">
-                    <div className="vc-streaks-stat-label">🎙️ Voice Together</div>
-                    <div className="vc-streaks-stat-value">{formatDuration(record.voice.totalSeconds)}</div>
-                    <div className="vc-streaks-stat-sub">{totalSessions} {totalSessions === 1 ? "session" : "sessions"}</div>
-                </div>
+            {/* Detailed Expanded Telemetry */}
+            {isExpanded && (
+                <>
+                    {/* Stats Grid */}
+                    <div className="vc-streaks-stats-grid">
+                        <div className="vc-streaks-stat-box">
+                            <div className="vc-streaks-stat-label">🎙️ Voice Together</div>
+                            <div className="vc-streaks-stat-value">{formatDuration(record.voice.totalSeconds)}</div>
+                            <div className="vc-streaks-stat-sub">{totalSessions} {totalSessions === 1 ? "session" : "sessions"}</div>
+                        </div>
 
-                <div className="vc-streaks-stat-box">
-                    <div className="vc-streaks-stat-label">💬 DMs Exchanged</div>
-                    <div className="vc-streaks-stat-value">{record.dms.totalMessages}</div>
-                    <div className="vc-streaks-stat-sub">
-                        {record.dms.lastDmDate ? `Last: ${formatRelativeTime(record.dms.lastDmDate)}` : "None yet"}
+                        <div className="vc-streaks-stat-box">
+                            <div className="vc-streaks-stat-label">💬 DMs Exchanged</div>
+                            <div className="vc-streaks-stat-value">{record.dms.totalMessages}</div>
+                            <div className="vc-streaks-stat-sub">
+                                {record.dms.lastDmDate ? `Last: ${formatRelativeTime(record.dms.lastDmDate)}` : "None yet"}
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            {/* Footer / Last Interaction Info */}
-            <div className="vc-streaks-footer">
-                <div className="vc-streaks-last-interacted">
-                    <span>🕒 Last seen: <strong>{lastSeenFormatted}</strong> {lastLocation}</span>
-                </div>
-                <div className="vc-streaks-first-seen">
-                    First met on {firstSeenDate}
-                </div>
-            </div>
+                    {/* Activity Heatmap / Punchcard */}
+                    <div className="vc-streaks-punchcard-section">
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
+                            <span className="vc-streaks-section-label">Interaction Momentum</span>
+                            <button
+                                style={{
+                                    background: "none",
+                                    border: "none",
+                                    fontSize: "10px",
+                                    color: "var(--interactive-normal, #949ba4)",
+                                    cursor: "pointer",
+                                    textDecoration: "underline"
+                                }}
+                                onClick={() => setPunchcardMode(punchcardMode === "week" ? "month" : "week")}
+                            >
+                                {punchcardMode === "week" ? "Show Month" : "Show 7 Days"}
+                            </button>
+                        </div>
+                        <StreakPunchcard
+                            activityLog={(record as any).activityLog}
+                            currentTierColor={currentTier.color}
+                            mode={punchcardMode}
+                        />
+                    </div>
+
+                    {/* Footer / Last Interaction Info */}
+                    <div className="vc-streaks-footer">
+                        <div className="vc-streaks-last-interacted">
+                            🕒 Last seen: <strong>{lastSeenFormatted}</strong> {lastLocation}
+                        </div>
+                        <div className="vc-streaks-first-seen">
+                            First met on {firstSeenDate}
+                        </div>
+                    </div>
+                </>
+            )}
         </div>
     );
 }

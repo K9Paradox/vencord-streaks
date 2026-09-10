@@ -1,8 +1,10 @@
 /* ==========================================================================
-   Vencord Streaks Plugin Styles
+   Vencord Streaks Plugin Styles — Discord Midnight & Dark Theme Native
    ========================================================================== */
 
-/* Badge in User Header / Popout */
+/* --------------------------------------------------------------------------
+   Badge in User Header / Popout
+   -------------------------------------------------------------------------- */
 .vc-streaks-badge {
     display: inline-flex;
     align-items: center;
@@ -10,17 +12,20 @@
     padding: 2px 8px;
     border-radius: 12px;
     background: var(--background-secondary-alt, rgba(30, 31, 34, 0.7));
-    border: 1px solid transparent;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     cursor: pointer;
     font-size: 12px;
     font-weight: 600;
     line-height: 16px;
     user-select: none;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    transition: transform 0.18s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.18s ease;
 }
 
 .vc-streaks-badge:hover {
-    transform: translateY(-1px);
+    transform: translateY(-1.5px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.18);
 }
 
 .vc-streaks-badge-icon {
@@ -29,6 +34,7 @@
     justify-content: center;
     width: 14px;
     height: 14px;
+    filter: drop-shadow(0 0 4px currentColor);
 }
 
 .vc-streaks-badge-icon svg {
@@ -40,22 +46,29 @@
     color: #f38630;
     font-weight: 700;
     padding-left: 2px;
-}
-
-/* Tooltip */
-.vc-streaks-badge-tooltip {
-    display: flex;
-    flex-direction: column;
+    display: inline-flex;
+    align-items: center;
     gap: 2px;
 }
 
-.vc-streaks-tooltip-title {
-    font-weight: 700;
-    font-size: 13px;
-    color: var(--header-primary, #fff);
+/* Tooltip Customization */
+.vc-streaks-badge-tooltip,
+.vc-streaks-tooltip-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 2px 4px;
 }
 
-.vc-streaks-tooltip-desc {
+.vc-streaks-tooltip-title,
+.vc-streaks-tooltip-bold {
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--header-primary, #ffffff);
+}
+
+.vc-streaks-tooltip-desc,
+.vc-streaks-tooltip-dim {
     font-size: 11px;
     color: var(--text-muted, #949ba4);
 }
@@ -67,17 +80,24 @@
     margin-top: 2px;
 }
 
-/* Main Profile Card */
+/* --------------------------------------------------------------------------
+   Main Profile Card (Discord Popout Container)
+   -------------------------------------------------------------------------- */
 .vc-streaks-card {
     background: var(--background-secondary, #2b2d31);
-    border-radius: 8px;
+    background: linear-gradient(180deg, rgba(43, 45, 49, 0.85) 0%, rgba(30, 31, 34, 0.95) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 10px;
     padding: 12px;
     margin: 8px 0;
-    border: 1px solid var(--background-modifier-accent, rgba(255, 255, 255, 0.05));
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
     display: flex;
     flex-direction: column;
     gap: 10px;
     box-sizing: border-box;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .vc-streaks-card-empty {
@@ -85,11 +105,12 @@
     opacity: 0.85;
 }
 
-.vc-streaks-title {
-    font-size: 12px;
+.vc-streaks-title,
+.vc-streaks-section-label {
+    font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.04em;
     color: var(--header-secondary, #b5bac1);
 }
 
@@ -117,19 +138,29 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 12px -2px currentColor;
+    transition: transform 0.2s ease;
+}
+
+.vc-streaks-card:hover .vc-streaks-card-icon {
+    transform: scale(1.08) rotate(2deg);
 }
 
 .vc-streaks-card-icon svg {
-    width: 28px;
-    height: 28px;
+    width: 20px;
+    height: 20px;
 }
 
 .vc-streaks-tier-name {
     font-size: 15px;
     font-weight: 700;
     line-height: 18px;
+    letter-spacing: -0.01em;
 }
 
 .vc-streaks-tier-tagline {
@@ -137,22 +168,59 @@
     color: var(--text-muted, #949ba4);
 }
 
-.vc-streaks-flame-pill {
-    background: rgba(243, 134, 48, 0.15);
-    border: 1px solid rgba(243, 134, 48, 0.4);
-    color: #f38630;
-    font-weight: 700;
-    font-size: 12px;
-    padding: 3px 8px;
-    border-radius: 12px;
-    box-shadow: 0 0 8px rgba(243, 134, 48, 0.25);
+/* --------------------------------------------------------------------------
+   Compact Mode vs Detailed Mode
+   -------------------------------------------------------------------------- */
+.vc-streaks-compact-strip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 10px;
+    background: var(--background-secondary-alt, #1e1f22);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
 }
 
-/* Progress Bar */
+.vc-streaks-compact-strip:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.vc-streaks-compact-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.vc-streaks-toggle-btn {
+    background: none;
+    border: none;
+    color: var(--interactive-normal, #b5bac1);
+    cursor: pointer;
+    padding: 2px 4px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    transition: color 0.15s ease, transform 0.2s ease;
+}
+
+.vc-streaks-toggle-btn:hover {
+    color: var(--interactive-active, #fff);
+}
+
+.vc-streaks-toggle-btn.expanded {
+    transform: rotate(180deg);
+}
+
+/* --------------------------------------------------------------------------
+   Progress Bar with Liquid Gradient Shimmer
+   -------------------------------------------------------------------------- */
 .vc-streaks-progress-container {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 5px;
 }
 
 .vc-streaks-progress-labels {
@@ -166,18 +234,45 @@
 .vc-streaks-progress-bar-bg {
     width: 100%;
     height: 6px;
-    background: var(--background-modifier-accent, rgba(255, 255, 255, 0.1));
-    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
     overflow: hidden;
+    position: relative;
 }
 
 .vc-streaks-progress-bar-fill {
     height: 100%;
-    border-radius: 3px;
-    transition: width 0.4s ease-out;
+    border-radius: 4px;
+    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
 }
 
-/* Stats Grid */
+/* Shimmer pass */
+.vc-streaks-progress-bar-fill::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.4) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    animation: vc-shimmer 2.2s infinite ease-in-out;
+}
+
+@keyframes vc-shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* --------------------------------------------------------------------------
+   Telemetry Stats Grid
+   -------------------------------------------------------------------------- */
 .vc-streaks-stats-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -186,24 +281,33 @@
 
 .vc-streaks-stat-box {
     background: var(--background-secondary-alt, #1e1f22);
-    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 8px;
     padding: 8px 10px;
     display: flex;
     flex-direction: column;
     gap: 2px;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.vc-streaks-stat-box:hover {
+    border-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
 }
 
 .vc-streaks-stat-label {
     font-size: 10px;
     font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 0.03em;
     color: var(--header-secondary, #b5bac1);
 }
 
 .vc-streaks-stat-value {
     font-size: 15px;
     font-weight: 700;
-    color: var(--header-primary, #fff);
+    font-variant-numeric: tabular-nums;
+    color: var(--header-primary, #ffffff);
 }
 
 .vc-streaks-stat-sub {
@@ -211,13 +315,404 @@
     color: var(--text-muted, #949ba4);
 }
 
-/* Footer Info */
-.vc-streaks-footer {
+/* --------------------------------------------------------------------------
+   Activity Punchcard & Heatmap
+   -------------------------------------------------------------------------- */
+.vc-streaks-punchcard-week,
+.vc-streaks-punchcard-month {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 4px;
+}
+
+.vc-streaks-punchcard-pills {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.vc-streaks-day-pill {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 6px 0;
+    background: var(--background-secondary-alt, #1e1f22);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.vc-streaks-day-pill:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.vc-streaks-day-letter {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-muted, #949ba4);
+}
+
+.vc-streaks-pill-indicator {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    transition: all 0.2s ease;
+}
+
+.vc-streaks-day-pill.intensity-1 .vc-streaks-pill-indicator {
+    background: var(--pill-color, #5865F2);
+    opacity: 0.35;
+}
+.vc-streaks-day-pill.intensity-2 .vc-streaks-pill-indicator {
+    background: var(--pill-color, #5865F2);
+    opacity: 0.65;
+}
+.vc-streaks-day-pill.intensity-3 .vc-streaks-pill-indicator {
+    background: var(--pill-color, #5865F2);
+    opacity: 0.85;
+    box-shadow: 0 0 6px var(--pill-color, #5865F2);
+}
+.vc-streaks-day-pill.intensity-4 .vc-streaks-pill-indicator {
+    background: var(--pill-color, #5865F2);
+    opacity: 1;
+    box-shadow: 0 0 10px var(--pill-color, #5865F2);
+}
+
+/* 28-day 4x7 Matrix */
+.vc-streaks-punchcard-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.vc-streaks-matrix-cell {
+    aspect-ratio: 1;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.vc-streaks-matrix-cell:hover {
+    transform: scale(1.2);
+    z-index: 2;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.vc-streaks-matrix-cell.intensity-1 { background: var(--cell-color, #5865F2); opacity: 0.30; }
+.vc-streaks-matrix-cell.intensity-2 { background: var(--cell-color, #5865F2); opacity: 0.55; }
+.vc-streaks-matrix-cell.intensity-3 { background: var(--cell-color, #5865F2); opacity: 0.80; }
+.vc-streaks-matrix-cell.intensity-4 {
+    background: var(--cell-color, #5865F2);
+    opacity: 1;
+    box-shadow: 0 0 6px var(--cell-color, #5865F2);
+}
+
+/* --------------------------------------------------------------------------
+   Animated CSS Flame Effects
+   -------------------------------------------------------------------------- */
+.vc-streaks-flame-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 8px;
+    border-radius: 12px;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.vc-streaks-flame-wrapper:hover {
+    transform: scale(1.06);
+}
+
+.vc-streaks-flame-svg {
+    width: 16px;
+    height: 16px;
+    position: relative;
+    z-index: 1;
+}
+
+.vc-streaks-flame-count {
+    font-size: 12px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    z-index: 1;
+}
+
+/* Ember Tier (1-3 Days) */
+.vc-streaks-flame-wrapper.flame-ember {
+    background: rgba(226, 74, 0, 0.12);
+    border: 1px solid rgba(255, 164, 27, 0.35);
+    color: #FFA41B;
+}
+.vc-streaks-flame-wrapper.flame-ember .flame-outer {
+    fill: url(#flameGradEmber);
+    animation: vc-ember-flicker 2s infinite ease-in-out;
+}
+.vc-streaks-flame-wrapper.flame-ember .flame-inner {
+    fill: #FFE66D;
+}
+
+/* Blaze Tier (4-9 Days) */
+.vc-streaks-flame-wrapper.flame-blaze {
+    background: rgba(243, 134, 48, 0.18);
+    border: 1px solid rgba(243, 134, 48, 0.5);
+    color: #F38630;
+    box-shadow: 0 0 10px rgba(243, 134, 48, 0.25);
+}
+.vc-streaks-flame-wrapper.flame-blaze .flame-outer {
+    fill: url(#flameGradEmber);
+    animation: vc-blaze-pulse 1.3s infinite alternate ease-in-out;
+    transform-origin: bottom center;
+}
+.vc-streaks-flame-wrapper.flame-blaze .flame-inner {
+    fill: #FFF475;
+}
+
+/* Inferno Tier (10-29 Days) */
+.vc-streaks-flame-wrapper.flame-inferno {
+    background: rgba(112, 0, 255, 0.18);
+    border: 1px solid rgba(0, 240, 255, 0.5);
+    color: #00F0FF;
+    box-shadow: 0 0 12px rgba(112, 0, 255, 0.35);
+}
+.vc-streaks-flame-wrapper.flame-inferno .flame-outer {
+    fill: url(#flameGradInferno);
+    animation: vc-inferno-warp 1.1s infinite alternate ease-in-out;
+    transform-origin: bottom center;
+}
+.vc-streaks-flame-wrapper.flame-inferno .flame-inner {
+    fill: #FFFFFF;
+}
+
+/* Hypernova / Chroma Tier (30+ Days) */
+.vc-streaks-flame-wrapper.flame-hypernova {
+    background: linear-gradient(135deg, rgba(255, 0, 122, 0.2), rgba(0, 240, 255, 0.2));
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: #FFFFFF;
+    box-shadow: 0 0 16px rgba(255, 0, 122, 0.4);
+}
+.vc-streaks-flame-wrapper.flame-hypernova .flame-outer {
+    fill: url(#flameGradChroma);
+    animation: vc-hyper-chroma 3s linear infinite, vc-blaze-pulse 0.9s infinite alternate;
+    transform-origin: bottom center;
+}
+.vc-streaks-flame-wrapper.flame-hypernova .flame-inner {
+    fill: #FFFFFF;
+}
+
+/* Keyframes */
+@keyframes vc-ember-flicker {
+    0%, 100% { transform: scaleY(1); opacity: 0.9; }
+    50% { transform: scaleY(1.05); opacity: 1; }
+}
+
+@keyframes vc-blaze-pulse {
+    0% { transform: scale(0.96) translateY(0.5px); }
+    100% { transform: scale(1.05) translateY(-0.5px); }
+}
+
+@keyframes vc-inferno-warp {
+    0% { transform: scaleY(0.94) skewX(-2deg); }
+    100% { transform: scaleY(1.07) skewX(2deg); }
+}
+
+@keyframes vc-hyper-chroma {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+/* Floating Spark Particles */
+.vc-streaks-spark-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.vc-streaks-spark-particles .spark {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #FFF;
+    opacity: 0;
+}
+
+.spark-1 {
+    left: 20%;
+    bottom: 40%;
+    animation: vc-spark-rise 1.4s infinite ease-out;
+}
+.spark-2 {
+    left: 50%;
+    bottom: 30%;
+    animation: vc-spark-rise 1.8s infinite 0.4s ease-out;
+}
+.spark-3 {
+    left: 75%;
+    bottom: 35%;
+    animation: vc-spark-rise 1.6s infinite 0.8s ease-out;
+}
+
+@keyframes vc-spark-rise {
+    0% { transform: translateY(0) scale(0.6); opacity: 0; }
+    40% { opacity: 1; }
+    100% { transform: translateY(-16px) scale(0); opacity: 0; }
+}
+
+/* --------------------------------------------------------------------------
+   Celebration Level-Up Toast
+   -------------------------------------------------------------------------- */
+.vc-streaks-celebration-toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 10002;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: rgba(17, 18, 20, 0.94);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    max-width: 360px;
+    cursor: pointer;
+    overflow: hidden;
+    animation: vc-toast-slide-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes vc-toast-slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.vc-streaks-toast-ambient {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    left: -20px;
+    top: -20px;
+    border-radius: 50%;
+    filter: blur(28px);
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+.vc-streaks-toast-icon-frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1.5px solid currentColor;
+    flex-shrink: 0;
+}
+
+.vc-streaks-toast-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.vc-streaks-toast-body {
     display: flex;
     flex-direction: column;
     gap: 2px;
+    flex-grow: 1;
+}
+
+.vc-streaks-toast-headline {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: #FEE75C;
+}
+
+.vc-streaks-toast-message {
+    font-size: 13px;
+    color: var(--header-primary, #ffffff);
+    line-height: 17px;
+}
+
+.vc-streaks-toast-tagline {
+    font-size: 11px;
+    font-style: italic;
+    color: var(--text-muted, #949ba4);
+}
+
+.vc-streaks-toast-close {
+    background: none;
+    border: none;
+    color: var(--interactive-normal, #949ba4);
+    font-size: 14px;
+    cursor: pointer;
+    padding: 4px;
+    line-height: 1;
+    border-radius: 4px;
+}
+
+.vc-streaks-toast-close:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Confetti Cascade inside Toast */
+.vc-streaks-confetti-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.confetti {
+    position: absolute;
+    width: 4px;
+    height: 8px;
+    border-radius: 1px;
+    opacity: 0;
+}
+
+.c1 { left: 20%; top: 0; animation: vc-confetti-fall 1.8s ease-out 0.1s; }
+.c2 { left: 45%; top: 0; animation: vc-confetti-fall 1.6s ease-out 0.2s; }
+.c3 { left: 70%; top: 0; animation: vc-confetti-fall 2.0s ease-out 0.05s; }
+.c4 { left: 85%; top: 0; animation: vc-confetti-fall 1.7s ease-out 0.25s; }
+
+@keyframes vc-confetti-fall {
+    0% { transform: translateY(-5px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(60px) rotate(360deg); opacity: 0; }
+}
+
+/* --------------------------------------------------------------------------
+   Footer / Provenance Info
+   -------------------------------------------------------------------------- */
+.vc-streaks-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
     padding-top: 8px;
-    border-top: 1px solid var(--background-modifier-accent, rgba(255, 255, 255, 0.06));
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .vc-streaks-last-interacted {

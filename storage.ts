@@ -1,58 +1,31 @@
+import * as DataStore from "@api/DataStore";
 import { InteractionRecord, InteractionType } from "./types";
 
 const STORAGE_KEY = "Streaks_UserData";
 let cache: Record<string, InteractionRecord> = {};
 let isLoaded = false;
 
-// Safe accessor for Vencord DataStore or browser localStorage
-function getDataStore() {
-    try {
-        // @ts-ignore
-        if (typeof Vencord !== "undefined" && Vencord.Plugins?.plugins?.Streaks) {
-            // @ts-ignore
-            return Vencord.DataStore;
-        }
-    } catch {}
-    return null;
-}
-
-export function initStorage(): void {
+export async function initStorage(): Promise<void> {
     if (isLoaded) return;
     try {
-        const ds = getDataStore();
-        if (ds && typeof ds.get === "function") {
-            const stored = ds.get(STORAGE_KEY);
-            if (stored && typeof stored === "object") {
-                cache = stored;
-                isLoaded = true;
-                return;
-            }
-        }
-
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) {
-            cache = JSON.parse(raw);
+        const stored = await DataStore.get<Record<string, InteractionRecord>>(STORAGE_KEY);
+        if (stored && typeof stored === "object") {
+            cache = stored;
         }
     } catch (err) {
-        console.error("[Streaks] Failed to load records from storage:", err);
-        cache = {};
+        console.error("[Streaks] Failed to load records from DataStore:", err);
     }
     isLoaded = true;
 }
 
-let saveTimeout: NodeJS.Timeout | null = null;
+let saveTimeout: any = null;
 export function saveStorage(): void {
     if (saveTimeout) clearTimeout(saveTimeout);
-    saveTimeout = setTimeout(() => {
+    saveTimeout = setTimeout(async () => {
         try {
-            const ds = getDataStore();
-            if (ds && typeof ds.set === "function") {
-                ds.set(STORAGE_KEY, cache);
-            } else {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(cache));
-            }
+            await DataStore.set(STORAGE_KEY, cache);
         } catch (err) {
-            console.error("[Streaks] Failed to persist records to storage:", err);
+            console.error("[Streaks] Failed to persist records to DataStore:", err);
         }
     }, 1000);
 }
@@ -121,6 +94,26 @@ export function touchStreak(record: InteractionRecord): void {
     record.streak.lastActiveDate = today;
 }
 
+function logDailyActivity(record: InteractionRecord, voiceSeconds = 0, dmCount = 0): void {
+    if (!record.activityLog) record.activityLog = {};
+    const today = new Date().toISOString().split("T")[0];
+    if (!record.activityLog[today]) {
+        record.activityLog[today] = { voiceSeconds: 0, dmCount: 0 };
+    }
+    record.activityLog[today].voiceSeconds += voiceSeconds;
+    record.activityLog[today].dmCount += dmCount;
+
+    // Keep storage ultra-light: prune entries older than 35 days
+    const keys = Object.keys(record.activityLog);
+    if (keys.length > 35) {
+        keys.sort();
+        while (keys.length > 30) {
+            const oldKey = keys.shift();
+            if (oldKey) delete record.activityLog[oldKey];
+        }
+    }
+}
+
 export function recordVoiceHeartbeat(
     userId: string,
     secondsDelta: number,
@@ -139,6 +132,7 @@ export function recordVoiceHeartbeat(
     if (guildName) record.voice.lastGuildName = guildName;
     if (channelName) record.voice.lastChannelName = channelName;
 
+    logDailyActivity(record, secondsDelta, 0);
     touchStreak(record);
     saveStorage();
     return record;
@@ -161,6 +155,7 @@ export function recordDmInteraction(userId: string, username?: string): Interact
     record.dms.totalMessages += 1;
     record.dms.lastDmDate = now;
 
+    logDailyActivity(record, 0, 1);
     touchStreak(record);
     saveStorage();
     return record;

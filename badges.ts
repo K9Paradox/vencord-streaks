@@ -8,68 +8,78 @@ export const BADGE_TIERS: BadgeTier[] = [
         minHours: 0,
         minSessions: 0,
         color: "#949BA4",
-        glowColor: "rgba(148, 155, 164, 0.2)",
-        iconSvg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>`
+        glowColor: "rgba(148, 155, 164, 0.25)",
+        iconSvg: `<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="4 2"/></svg>`
     },
     {
         level: 1,
-        name: "Acquaintance",
-        tagline: "Crossed paths in VC",
+        name: "Bronze",
+        tagline: "Acquaintance • Crossed paths in VC",
         minHours: 0.25, // 15 mins
         minSessions: 2,
         color: "#CD7F32",
-        glowColor: "rgba(205, 127, 50, 0.3)",
-        iconSvg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>`
+        glowColor: "rgba(205, 127, 50, 0.40)",
+        iconSvg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm0 2.18l6 2.25v4.66c0 3.97-2.6 7.68-6 8.78-3.4-1.1-6-4.81-6-8.78V6.43l6-2.25z"/><circle cx="12" cy="11" r="2.5"/></svg>`
     },
     {
         level: 2,
-        name: "Familiar",
-        tagline: "Frequent presence",
+        name: "Silver",
+        tagline: "Familiar • Frequent presence",
         minHours: 2,
         minSessions: 5,
-        color: "#B0C4DE",
-        glowColor: "rgba(176, 196, 222, 0.35)",
-        iconSvg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`
+        color: "#E2E8F0",
+        glowColor: "rgba(226, 232, 240, 0.45)",
+        iconSvg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 4.8 5.3.8-3.8 3.7.9 5.3-4.8-2.5-4.8 2.5.9-5.3-3.8-3.7 5.3-.8L12 2z"/><path d="M12 6.5l-1.3 2.7-3 .4 2.2 2.1-.5 3 2.6-1.4 2.6 1.4-.5-3 2.2-2.1-3-.4L12 6.5z" opacity="0.4"/></svg>`
     },
     {
         level: 3,
-        name: "Regular",
-        tagline: "Solid gaming buddy",
+        name: "Gold",
+        tagline: "Regular • Solid gaming buddy",
         minHours: 10,
         minSessions: 15,
         color: "#FEE75C",
-        glowColor: "rgba(254, 231, 92, 0.4)",
+        glowColor: "rgba(254, 231, 92, 0.50)",
         iconSvg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>`
     },
     {
         level: 4,
-        name: "Duo",
-        tagline: "Reliable teammate",
+        name: "Emerald",
+        tagline: "Duo • Reliable teammate",
         minHours: 30,
         minSessions: 30,
         color: "#57F287",
-        glowColor: "rgba(87, 242, 135, 0.4)",
-        iconSvg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 3s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>`
+        glowColor: "rgba(87, 242, 135, 0.55)",
+        iconSvg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 3l-4 6 10 12 10-12-4-6H6zm1.5 2h9l2.7 4H4.8l2.7-4zm-3 5.5h15L12 19.8 4.5 10.5z"/></svg>`
     },
     {
         level: 5,
-        name: "Homie",
-        tagline: "Inner circle",
-        minHours: 75,
-        minSessions: 60,
-        color: "#EB459E",
-        glowColor: "rgba(235, 69, 158, 0.45)",
-        iconSvg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`
+        name: "Amethyst",
+        tagline: "Homie • Inner circle",
+        minHours: 60,
+        minSessions: 50,
+        color: "#A855F7",
+        glowColor: "rgba(168, 85, 247, 0.55)",
+        iconSvg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l8 6v8l-8 6-8-6V8l8-6zm0 2.8L6 9.3v5.4l6 4.5 6-4.5V9.3L12 4.8zm0 2.7l4 3v3l-4 3-4-3v-3l4-3z"/></svg>`
     },
     {
         level: 6,
-        name: "Veteran",
-        tagline: "Unbreakable bond",
-        minHours: 150,
-        minSessions: 100,
-        color: "#5865F2",
-        glowColor: "rgba(88, 101, 242, 0.5)",
-        iconSvg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L9 9l-8 3 8 3 3 8 3-8 8-3-8-3-3-8z"/></svg>`
+        name: "Ruby",
+        tagline: "Kindred • Unbreakable synergy",
+        minHours: 120,
+        minSessions: 85,
+        color: "#F23F43",
+        glowColor: "rgba(242, 63, 67, 0.60)",
+        iconSvg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`
+    },
+    {
+        level: 7,
+        name: "Chroma Diamond",
+        tagline: "Veteran • Mythic tier legend",
+        minHours: 200,
+        minSessions: 150,
+        color: "#00F0FF",
+        glowColor: "rgba(0, 240, 255, 0.70)",
+        iconSvg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L9 9l-8 3 8 3 3 8 3-8 8-3-8-3-3-8zm0 4.5l1.8 4.7 4.7 1.8-4.7 1.8L12 18.5l-1.8-4.7L5.5 12l4.7-1.8L12 5.5z"/></svg>`
     }
 ];
 

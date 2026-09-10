@@ -19,6 +19,11 @@ export interface StreakStats {
     lastActiveDate: string; // ISO date format: YYYY-MM-DD
 }
 
+export interface DailyActivity {
+    voiceSeconds: number;
+    dmCount: number;
+}
+
 export interface InteractionRecord {
     userId: string;
     username?: string;
@@ -28,6 +33,7 @@ export interface InteractionRecord {
     voice: VoiceStats;
     dms: DmStats;
     streak: StreakStats;
+    activityLog?: Record<string, DailyActivity>;
 }
 
 export interface BadgeTier {
