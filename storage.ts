@@ -30,9 +30,82 @@ export function saveStorage(): void {
     }, 1000);
 }
 
+export function createSpoofedRecord(userId: string, tier = "Gold"): InteractionRecord {
+    const now = Date.now();
+    const presets: Record<string, { voiceHours: number; sessions: number; dms: number; streak: number; longest: number }> = {
+        Bronze: { voiceHours: 0.3, sessions: 3, dms: 12, streak: 3, longest: 3 },
+        Silver: { voiceHours: 3.2, sessions: 7, dms: 45, streak: 6, longest: 8 },
+        Gold: { voiceHours: 14.5, sessions: 19, dms: 180, streak: 15, longest: 20 },
+        Emerald: { voiceHours: 42.0, sessions: 38, dms: 450, streak: 35, longest: 40 },
+        Amethyst: { voiceHours: 95.0, sessions: 72, dms: 920, streak: 68, longest: 75 },
+        Ruby: { voiceHours: 180.0, sessions: 130, dms: 2100, streak: 110, longest: 110 },
+        Diamond: { voiceHours: 380.0, sessions: 250, dms: 5000, streak: 365, longest: 365 }
+    };
+
+    const p = presets[tier] || presets.Gold;
+    const voiceSeconds = Math.round(p.voiceHours * 3600);
+
+    // Build 28-day sample punchcard activity log
+    const activityLog: Record<string, { voiceSeconds: number; dmCount: number }> = {};
+    for (let i = 0; i < 28; i++) {
+        const d = new Date(now - i * 86400000).toISOString().split("T")[0];
+        if (i % 2 === 0 || i % 3 === 0) {
+            activityLog[d] = {
+                voiceSeconds: Math.floor(Math.random() * 3600) + 900,
+                dmCount: Math.floor(Math.random() * 20) + 2
+            };
+        }
+    }
+
+    return {
+        userId,
+        username: "Spoofed User",
+        firstSeen: now - 60 * 86400000,
+        lastSeen: now,
+        lastInteractionType: "voice",
+        voice: {
+            totalSeconds: voiceSeconds,
+            sessionsCount: p.sessions,
+            lastSessionDate: now - 1800000,
+            lastGuildName: "Gaming Lounge",
+            lastChannelName: "Duo Queue"
+        },
+        dms: {
+            totalMessages: p.dms,
+            lastDmDate: now - 3600000
+        },
+        streak: {
+            current: p.streak,
+            longest: p.longest,
+            lastActiveDate: new Date().toISOString().split("T")[0]
+        },
+        activityLog
+    };
+}
+
+export function spoofUser(userId: string, tier = "Gold"): InteractionRecord {
+    initStorage();
+    const mock = createSpoofedRecord(userId, tier);
+    cache[userId] = mock;
+    saveStorage();
+    return mock;
+}
+
 export function getRecord(userId: string): InteractionRecord | undefined {
     initStorage();
-    return cache[userId];
+    if (cache[userId]) return cache[userId];
+
+    try {
+        // @ts-ignore
+        const devMode = (window as any).StreaksDevMode || (window as any).Vencord?.Plugins?.plugins?.Streaks?.settings?.store?.devTestingMode;
+        if (devMode) {
+            // @ts-ignore
+            const tier = (window as any).StreaksDevTier || (window as any).Vencord?.Plugins?.plugins?.Streaks?.settings?.store?.devTestingTier || "Gold";
+            return createSpoofedRecord(userId, tier);
+        }
+    } catch {}
+
+    return undefined;
 }
 
 export function getAllRecords(): Record<string, InteractionRecord> {

@@ -724,3 +724,96 @@
     font-size: 11px;
     color: var(--text-muted, #949ba4);
 }
+
+/* --------------------------------------------------------------------------
+   Voice Channel User Badge / Flame Icon
+   -------------------------------------------------------------------------- */
+.vc-streaks-voice-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 6px;
+    vertical-align: middle;
+    cursor: pointer;
+    transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s ease;
+}
+
+.vc-streaks-voice-icon:hover {
+    transform: scale(1.22);
+}
+
+/* --------------------------------------------------------------------------
+   Full Profile Modal & Header Badges
+   -------------------------------------------------------------------------- */
+.vc-streaks-header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+    margin-right: 6px;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.vc-streaks-header-badge:hover {
+    transform: translateY(-1px);
+}
+
+.vc-streaks-modal-tab-content {
+    padding: 16px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.vc-streaks-modal-tab-content .vc-streaks-card {
+    background: rgba(18, 19, 26, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* --------------------------------------------------------------------------
+   Dev Tooling & Spoof Controls
+   -------------------------------------------------------------------------- */
+.vc-streaks-dev-btn {
+    background: linear-gradient(135deg, rgba(88, 101, 242, 0.3) 0%, rgba(235, 69, 158, 0.3) 100%);
+    border: 1px solid rgba(88, 101, 242, 0.6);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.vc-streaks-dev-btn:hover {
+    background: linear-gradient(135deg, rgba(88, 101, 242, 0.5) 0%, rgba(235, 69, 158, 0.5) 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(88, 101, 242, 0.3);
+}
+
+.vc-streaks-dev-cycle-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #ffcc00;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+}
+
+.vc-streaks-dev-cycle-btn:hover {
+    background: rgba(255, 204, 0, 0.2);
+    border-color: #ffcc00;
+    transform: scale(1.1);
+}

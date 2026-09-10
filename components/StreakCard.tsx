@@ -1,8 +1,10 @@
 import { React } from "@webpack/common";
 import { calculateFamiliarity, formatDuration, formatRelativeTime, isStreakActive } from "../badges";
-import { getRecord } from "../storage";
+import { getRecord, spoofUser } from "../storage";
 import { StreakFlame } from "./StreakFlame";
 import { StreakPunchcard } from "./StreakPunchcard";
+
+const DEV_TIERS = ["Bronze", "Silver", "Gold", "Emerald", "Amethyst", "Ruby", "Diamond"];
 
 interface StreakCardProps {
     userId: string;
@@ -12,11 +14,21 @@ interface StreakCardProps {
 export function StreakCard({ userId, defaultExpanded = false }: StreakCardProps) {
     const [isExpanded, setIsExpanded] = React.useState(defaultExpanded);
     const [punchcardMode, setPunchcardMode] = React.useState<"week" | "month">("week");
+    const [, setRenderTrigger] = React.useState(0);
 
     const record = getRecord(userId);
     const { currentTier, nextTier, progressPercentage, totalHours, totalSessions } = calculateFamiliarity(record);
     const streakActive = isStreakActive(record?.streak?.lastActiveDate);
     const currentStreak = streakActive ? (record?.streak?.current || 0) : 0;
+
+    const handleCycleTier = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        const currentIdx = DEV_TIERS.indexOf(currentTier.name);
+        const nextIdx = (currentIdx + 1) % DEV_TIERS.length;
+        const nextTierName = DEV_TIERS[nextIdx];
+        spoofUser(userId, nextTierName);
+        setRenderTrigger(prev => prev + 1);
+    };
 
     if (!record || (record.voice.totalSeconds === 0 && record.dms.totalMessages === 0)) {
         return (
@@ -26,6 +38,17 @@ export function StreakCard({ userId, defaultExpanded = false }: StreakCardProps)
                 </div>
                 <div className="vc-streaks-empty-text">
                     No mutual VC or DM interactions recorded yet. Jump in a call together to ignite your streak!
+                </div>
+                <div style={{ marginTop: "10px", display: "flex", gap: "6px" }}>
+                    <button
+                        className="vc-streaks-dev-btn"
+                        onClick={() => {
+                            spoofUser(userId, "Gold");
+                            setRenderTrigger(prev => prev + 1);
+                        }}
+                    >
+                        🧪 Seed Mock Stats (Dev Preview)
+                    </button>
                 </div>
             </div>
         );
@@ -60,7 +83,14 @@ export function StreakCard({ userId, defaultExpanded = false }: StreakCardProps)
                     </div>
                 </div>
 
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                    <button
+                        className="vc-streaks-dev-cycle-btn"
+                        onClick={handleCycleTier}
+                        title="Click to cycle next tier (Dev Testing)"
+                    >
+                        🧪
+                    </button>
                     {currentStreak > 0 && (
                         <StreakFlame streakDays={currentStreak} size="medium" />
                     )}
