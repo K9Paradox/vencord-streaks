@@ -1,9 +1,92 @@
 /* ==========================================================================
-   Vencord Streaks Plugin Styles — Discord Midnight & Dark Theme Native
+   Vencord Streaks Plugin Styles — Discord-Native Adaptive Theming System
+   Seamlessly adapts across Dark, Light, Midnight, and Custom Profile Themes
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   Badge in User Header / Popout
+   Adaptive Theme Custom Properties
+   -------------------------------------------------------------------------- */
+
+/* Light Theme (and default fallback) */
+:root, .theme-light {
+    --streaks-card-bg: var(--background-secondary, #f2f3f5);
+    --streaks-card-bg-subtle: var(--background-secondary-alt, #e3e5e8);
+    --streaks-card-border: var(--border-subtle, rgba(0, 0, 0, 0.12));
+    --streaks-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
+
+    --streaks-surface-box: var(--background-mod-subtle, var(--background-primary, rgba(0, 0, 0, 0.04)));
+    --streaks-surface-border: var(--border-subtle, rgba(0, 0, 0, 0.08));
+    --streaks-surface-hover: var(--background-modifier-hover, rgba(0, 0, 0, 0.06));
+
+    --streaks-track-bg: var(--background-modifier-accent, rgba(0, 0, 0, 0.12));
+
+    /* Adaptive Tier Accent Colors (WCAG Contrast on Light Backgrounds) */
+    --streaks-tier-first-contact: var(--text-muted, #5c5e66);
+    --streaks-tier-first-contact-glow: rgba(92, 94, 102, 0.20);
+
+    --streaks-tier-bronze: #8b4513; /* Deep rustic bronze */
+    --streaks-tier-bronze-glow: rgba(139, 69, 19, 0.25);
+
+    --streaks-tier-silver: #475569; /* Slate silver */
+    --streaks-tier-silver-glow: rgba(71, 85, 105, 0.25);
+
+    --streaks-tier-gold: #a16207;   /* Deep amber gold */
+    --streaks-tier-gold-glow: rgba(161, 98, 7, 0.25);
+
+    --streaks-tier-emerald: #15803d; /* Forest emerald */
+    --streaks-tier-emerald-glow: rgba(21, 128, 61, 0.25);
+
+    --streaks-tier-amethyst: #7e22ce; /* Royal purple */
+    --streaks-tier-amethyst-glow: rgba(126, 34, 206, 0.25);
+
+    --streaks-tier-ruby: #b91c1c; /* Crimson ruby */
+    --streaks-tier-ruby-glow: rgba(185, 28, 28, 0.25);
+
+    --streaks-tier-diamond: #0284c7; /* Azure ocean diamond */
+    --streaks-tier-diamond-glow: rgba(2, 132, 199, 0.25);
+}
+
+/* Dark & Midnight Theme Variables */
+.theme-dark, .theme-midnight {
+    --streaks-card-bg: var(--background-secondary, #2b2d31);
+    --streaks-card-bg-subtle: var(--background-secondary-alt, #1e1f22);
+    --streaks-card-border: var(--border-subtle, rgba(255, 255, 255, 0.08));
+    --streaks-card-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
+
+    --streaks-surface-box: var(--background-secondary-alt, rgba(255, 255, 255, 0.03));
+    --streaks-surface-border: var(--border-subtle, rgba(255, 255, 255, 0.05));
+    --streaks-surface-hover: var(--background-modifier-hover, rgba(255, 255, 255, 0.06));
+
+    --streaks-track-bg: var(--background-modifier-accent, rgba(255, 255, 255, 0.10));
+
+    /* Vibrant Neon Colors on Dark Backgrounds */
+    --streaks-tier-first-contact: #949BA4;
+    --streaks-tier-first-contact-glow: rgba(148, 155, 164, 0.25);
+
+    --streaks-tier-bronze: #CD7F32;
+    --streaks-tier-bronze-glow: rgba(205, 127, 50, 0.40);
+
+    --streaks-tier-silver: #E2E8F0;
+    --streaks-tier-silver-glow: rgba(226, 232, 240, 0.45);
+
+    --streaks-tier-gold: #FEE75C;
+    --streaks-tier-gold-glow: rgba(254, 231, 92, 0.50);
+
+    --streaks-tier-emerald: #57F287;
+    --streaks-tier-emerald-glow: rgba(87, 242, 135, 0.55);
+
+    --streaks-tier-amethyst: #A855F7;
+    --streaks-tier-amethyst-glow: rgba(168, 85, 247, 0.55);
+
+    --streaks-tier-ruby: #F23F43;
+    --streaks-tier-ruby-glow: rgba(242, 63, 67, 0.60);
+
+    --streaks-tier-diamond: #00F0FF;
+    --streaks-tier-diamond-glow: rgba(0, 240, 255, 0.70);
+}
+
+/* --------------------------------------------------------------------------
+   Badge in User Header & Member List
    -------------------------------------------------------------------------- */
 .vc-streaks-badge {
     display: inline-flex;
@@ -11,21 +94,20 @@
     gap: 6px;
     padding: 2px 8px;
     border-radius: 12px;
-    background: var(--background-secondary-alt, rgba(30, 31, 34, 0.7));
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--streaks-surface-box);
+    border: 1px solid var(--streaks-surface-border);
     cursor: pointer;
     font-size: 12px;
     font-weight: 600;
     line-height: 16px;
     user-select: none;
-    transition: transform 0.18s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.18s ease;
+    transition: transform 0.18s cubic-bezier(0.2, 0, 0, 1), background 0.18s ease, border-color 0.18s ease;
 }
 
 .vc-streaks-badge:hover {
     transform: translateY(-1.5px) scale(1.02);
-    border-color: rgba(255, 255, 255, 0.18);
+    background: var(--streaks-surface-hover);
+    border-color: var(--border-strong, var(--streaks-surface-border));
 }
 
 .vc-streaks-badge-icon {
@@ -34,7 +116,7 @@
     justify-content: center;
     width: 14px;
     height: 14px;
-    filter: drop-shadow(0 0 4px currentColor);
+    filter: drop-shadow(0 0 3px currentColor);
 }
 
 .vc-streaks-badge-icon svg {
@@ -81,28 +163,28 @@
 }
 
 /* --------------------------------------------------------------------------
-   Main Profile Card (Discord Popout Container)
+   Main Profile Card (Discord Popout & Full Modal Container)
    -------------------------------------------------------------------------- */
 .vc-streaks-card {
-    background: var(--background-secondary, #2b2d31);
-    background: linear-gradient(180deg, rgba(43, 45, 49, 0.85) 0%, rgba(30, 31, 34, 0.95) 100%);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: var(--profile-body-background-color, var(--streaks-card-bg));
     border-radius: 10px;
     padding: 12px;
     margin: 8px 0;
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
+    border: 1px solid var(--streaks-card-border);
+    box-shadow: var(--streaks-card-shadow);
     display: flex;
     flex-direction: column;
     gap: 10px;
     box-sizing: border-box;
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    color: var(--text-normal);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .vc-streaks-card-empty {
     padding: 10px 12px;
-    opacity: 0.85;
+    background: var(--streaks-surface-box);
+    border: 1px dashed var(--streaks-surface-border);
+    border-radius: 8px;
 }
 
 .vc-streaks-title,
@@ -141,9 +223,9 @@
     width: 32px;
     height: 32px;
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 12px -2px currentColor;
+    background: var(--streaks-surface-box);
+    border: 1px solid var(--streaks-surface-border);
+    box-shadow: 0 0 10px -2px currentColor;
     transition: transform 0.2s ease;
 }
 
@@ -176,16 +258,16 @@
     align-items: center;
     justify-content: space-between;
     padding: 6px 10px;
-    background: var(--background-secondary-alt, #1e1f22);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--streaks-surface-box);
+    border: 1px solid var(--streaks-surface-border);
     border-radius: 8px;
     cursor: pointer;
     transition: background 0.15s ease, border-color 0.15s ease;
 }
 
 .vc-streaks-compact-strip:hover {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(255, 255, 255, 0.12);
+    background: var(--streaks-surface-hover);
+    border-color: var(--border-strong, var(--streaks-surface-border));
 }
 
 .vc-streaks-compact-left {
@@ -207,7 +289,7 @@
 }
 
 .vc-streaks-toggle-btn:hover {
-    color: var(--interactive-active, #fff);
+    color: var(--interactive-active, #ffffff);
 }
 
 .vc-streaks-toggle-btn.expanded {
@@ -215,7 +297,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   Progress Bar with Liquid Gradient Shimmer
+   Progress Bar with Native Adaptive Track & Liquid Gradient Shimmer
    -------------------------------------------------------------------------- */
 .vc-streaks-progress-container {
     display: flex;
@@ -234,7 +316,7 @@
 .vc-streaks-progress-bar-bg {
     width: 100%;
     height: 6px;
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--streaks-track-bg);
     border-radius: 4px;
     overflow: hidden;
     position: relative;
@@ -259,7 +341,7 @@
     background: linear-gradient(
         90deg,
         rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.4) 50%,
+        rgba(255, 255, 255, 0.35) 50%,
         rgba(255, 255, 255, 0) 100%
     );
     animation: vc-shimmer 2.2s infinite ease-in-out;
@@ -280,18 +362,19 @@
 }
 
 .vc-streaks-stat-box {
-    background: var(--background-secondary-alt, #1e1f22);
-    border: 1px solid rgba(255, 255, 255, 0.04);
+    background: var(--streaks-surface-box);
+    border: 1px solid var(--streaks-surface-border);
     border-radius: 8px;
     padding: 8px 10px;
     display: flex;
     flex-direction: column;
     gap: 2px;
-    transition: border-color 0.15s ease, transform 0.15s ease;
+    transition: border-color 0.15s ease, transform 0.15s ease, background 0.15s ease;
 }
 
 .vc-streaks-stat-box:hover {
-    border-color: rgba(255, 255, 255, 0.1);
+    background: var(--streaks-surface-hover);
+    border-color: var(--border-strong, var(--streaks-surface-border));
     transform: translateY(-1px);
 }
 
@@ -318,12 +401,40 @@
 /* --------------------------------------------------------------------------
    Activity Punchcard & Heatmap
    -------------------------------------------------------------------------- */
+.vc-streaks-punchcard-section {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.vc-streaks-punchcard-toggle-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.vc-streaks-mode-toggle {
+    background: none;
+    border: none;
+    font-size: 10px;
+    color: var(--interactive-normal, #949ba4);
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+    transition: color 0.15s ease;
+}
+
+.vc-streaks-mode-toggle:hover {
+    color: var(--interactive-active, #ffffff);
+}
+
 .vc-streaks-punchcard-week,
 .vc-streaks-punchcard-month {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    padding-top: 4px;
+    padding-top: 2px;
 }
 
 .vc-streaks-punchcard-pills {
@@ -339,8 +450,8 @@
     justify-content: center;
     gap: 4px;
     padding: 6px 0;
-    background: var(--background-secondary-alt, #1e1f22);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--streaks-surface-box);
+    border: 1px solid var(--streaks-surface-border);
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.15s ease;
@@ -348,7 +459,8 @@
 
 .vc-streaks-day-pill:hover {
     transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.15);
+    background: var(--streaks-surface-hover);
+    border-color: var(--border-strong, var(--streaks-surface-border));
 }
 
 .vc-streaks-day-letter {
@@ -361,27 +473,27 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.12);
+    background: var(--streaks-track-bg);
     transition: all 0.2s ease;
 }
 
 .vc-streaks-day-pill.intensity-1 .vc-streaks-pill-indicator {
-    background: var(--pill-color, #5865F2);
-    opacity: 0.35;
+    background: var(--pill-color, var(--brand-experiment, #5865F2));
+    opacity: 0.40;
 }
 .vc-streaks-day-pill.intensity-2 .vc-streaks-pill-indicator {
-    background: var(--pill-color, #5865F2);
+    background: var(--pill-color, var(--brand-experiment, #5865F2));
     opacity: 0.65;
 }
 .vc-streaks-day-pill.intensity-3 .vc-streaks-pill-indicator {
-    background: var(--pill-color, #5865F2);
+    background: var(--pill-color, var(--brand-experiment, #5865F2));
     opacity: 0.85;
     box-shadow: 0 0 6px var(--pill-color, #5865F2);
 }
 .vc-streaks-day-pill.intensity-4 .vc-streaks-pill-indicator {
-    background: var(--pill-color, #5865F2);
+    background: var(--pill-color, var(--brand-experiment, #5865F2));
     opacity: 1;
-    box-shadow: 0 0 10px var(--pill-color, #5865F2);
+    box-shadow: 0 0 8px var(--pill-color, #5865F2);
 }
 
 /* 28-day 4x7 Matrix */
@@ -394,23 +506,23 @@
 .vc-streaks-matrix-cell {
     aspect-ratio: 1;
     border-radius: 3px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.03);
+    background: var(--streaks-track-bg);
+    border: 1px solid var(--streaks-surface-border);
     cursor: pointer;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .vc-streaks-matrix-cell:hover {
-    transform: scale(1.2);
+    transform: scale(1.25);
     z-index: 2;
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: var(--border-strong, var(--interactive-active));
 }
 
-.vc-streaks-matrix-cell.intensity-1 { background: var(--cell-color, #5865F2); opacity: 0.30; }
-.vc-streaks-matrix-cell.intensity-2 { background: var(--cell-color, #5865F2); opacity: 0.55; }
-.vc-streaks-matrix-cell.intensity-3 { background: var(--cell-color, #5865F2); opacity: 0.80; }
+.vc-streaks-matrix-cell.intensity-1 { background: var(--cell-color, var(--brand-experiment, #5865F2)); opacity: 0.35; }
+.vc-streaks-matrix-cell.intensity-2 { background: var(--cell-color, var(--brand-experiment, #5865F2)); opacity: 0.60; }
+.vc-streaks-matrix-cell.intensity-3 { background: var(--cell-color, var(--brand-experiment, #5865F2)); opacity: 0.85; }
 .vc-streaks-matrix-cell.intensity-4 {
-    background: var(--cell-color, #5865F2);
+    background: var(--cell-color, var(--brand-experiment, #5865F2));
     opacity: 1;
     box-shadow: 0 0 6px var(--cell-color, #5865F2);
 }
@@ -446,6 +558,34 @@
     font-weight: 700;
     font-variant-numeric: tabular-nums;
     z-index: 1;
+    color: currentColor;
+}
+
+/* Flame Sizes */
+.vc-streaks-flame-wrapper.size-small {
+    padding: 1px 5px;
+    gap: 3px;
+    border-radius: 8px;
+}
+.vc-streaks-flame-wrapper.size-small .vc-streaks-flame-svg {
+    width: 12px;
+    height: 12px;
+}
+.vc-streaks-flame-wrapper.size-small .vc-streaks-flame-count {
+    font-size: 10px;
+}
+
+.vc-streaks-flame-wrapper.size-large {
+    padding: 5px 12px;
+    gap: 8px;
+    border-radius: 16px;
+}
+.vc-streaks-flame-wrapper.size-large .vc-streaks-flame-svg {
+    width: 22px;
+    height: 22px;
+}
+.vc-streaks-flame-wrapper.size-large .vc-streaks-flame-count {
+    font-size: 14px;
 }
 
 /* Ember Tier (1-3 Days) */
@@ -508,6 +648,31 @@
 }
 .vc-streaks-flame-wrapper.flame-hypernova .flame-inner {
     fill: #FFFFFF;
+}
+
+/* Light theme flame overrides for high contrast and readability */
+.theme-light .vc-streaks-flame-wrapper.flame-ember {
+    background: rgba(226, 74, 0, 0.10);
+    border-color: rgba(226, 74, 0, 0.40);
+    color: #c2410c;
+}
+.theme-light .vc-streaks-flame-wrapper.flame-blaze {
+    background: rgba(234, 88, 12, 0.12);
+    border-color: rgba(234, 88, 12, 0.45);
+    color: #c2410c;
+    box-shadow: 0 0 6px rgba(234, 88, 12, 0.20);
+}
+.theme-light .vc-streaks-flame-wrapper.flame-inferno {
+    background: rgba(109, 40, 217, 0.10);
+    border-color: rgba(109, 40, 217, 0.40);
+    color: #6d28d9;
+    box-shadow: 0 0 6px rgba(109, 40, 217, 0.20);
+}
+.theme-light .vc-streaks-flame-wrapper.flame-hypernova {
+    background: rgba(219, 39, 119, 0.12);
+    border-color: rgba(219, 39, 119, 0.45);
+    color: #be185d;
+    box-shadow: 0 0 8px rgba(219, 39, 119, 0.25);
 }
 
 /* Keyframes */
@@ -584,12 +749,12 @@
     align-items: center;
     gap: 12px;
     padding: 12px 16px;
-    background: rgba(17, 18, 20, 0.94);
+    background: var(--background-floating, rgba(17, 18, 20, 0.94));
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.12));
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    box-shadow: var(--elevation-high, 0 10px 30px rgba(0, 0, 0, 0.35));
     max-width: 360px;
     cursor: pointer;
     overflow: hidden;
@@ -626,7 +791,7 @@
     width: 40px;
     height: 40px;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--streaks-surface-box);
     border: 1.5px solid currentColor;
     flex-shrink: 0;
 }
@@ -647,7 +812,7 @@
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 0.05em;
-    color: #FEE75C;
+    color: var(--streaks-tier-gold, #FEE75C);
 }
 
 .vc-streaks-toast-message {
@@ -671,11 +836,12 @@
     padding: 4px;
     line-height: 1;
     border-radius: 4px;
+    transition: background 0.15s ease, color 0.15s ease;
 }
 
 .vc-streaks-toast-close:hover {
-    color: #ffffff;
-    background: rgba(255, 255, 255, 0.08);
+    color: var(--interactive-active, #ffffff);
+    background: var(--streaks-surface-hover);
 }
 
 /* Confetti Cascade inside Toast */
@@ -712,7 +878,7 @@
     flex-direction: column;
     gap: 3px;
     padding-top: 8px;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid var(--streaks-surface-border);
 }
 
 .vc-streaks-last-interacted {
@@ -753,14 +919,16 @@
     border-radius: 12px;
     font-size: 12px;
     font-weight: 600;
-    background: rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(8px);
+    background: var(--streaks-surface-box);
+    border: 1px solid var(--streaks-surface-border);
     cursor: pointer;
     margin-right: 6px;
-    transition: transform 0.15s ease, box-shadow 0.2s ease;
+    transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
 }
 
 .vc-streaks-header-badge:hover {
+    background: var(--streaks-surface-hover);
+    border-color: var(--border-strong, var(--streaks-surface-border));
     transform: translateY(-1px);
 }
 
@@ -771,36 +939,36 @@
 }
 
 .vc-streaks-modal-tab-content .vc-streaks-card {
-    background: rgba(18, 19, 26, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    background: var(--background-secondary, var(--background-floating));
+    border: 1px solid var(--streaks-card-border);
+    box-shadow: var(--streaks-card-shadow);
 }
 
 /* --------------------------------------------------------------------------
    Dev Tooling & Spoof Controls
    -------------------------------------------------------------------------- */
 .vc-streaks-dev-btn {
-    background: linear-gradient(135deg, rgba(88, 101, 242, 0.3) 0%, rgba(235, 69, 158, 0.3) 100%);
-    border: 1px solid rgba(88, 101, 242, 0.6);
+    background: var(--brand-experiment, #5865f2);
+    border: none;
     color: #ffffff;
     font-size: 11px;
     font-weight: 700;
-    padding: 4px 10px;
+    padding: 6px 12px;
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.15s ease;
 }
 
 .vc-streaks-dev-btn:hover {
-    background: linear-gradient(135deg, rgba(88, 101, 242, 0.5) 0%, rgba(235, 69, 158, 0.5) 100%);
+    background: var(--brand-experiment-560, #4752c4);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(88, 101, 242, 0.3);
+    box-shadow: 0 4px 12px rgba(88, 101, 242, 0.35);
 }
 
 .vc-streaks-dev-cycle-btn {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #ffcc00;
+    background: var(--streaks-surface-box);
+    border: 1px solid var(--streaks-surface-border);
+    color: var(--interactive-normal, #949ba4);
     font-size: 11px;
     font-weight: 700;
     padding: 2px 6px;
@@ -813,7 +981,8 @@
 }
 
 .vc-streaks-dev-cycle-btn:hover {
-    background: rgba(255, 204, 0, 0.2);
-    border-color: #ffcc00;
+    background: var(--streaks-surface-hover);
+    color: var(--interactive-active, #ffffff);
+    border-color: var(--border-strong, var(--streaks-surface-border));
     transform: scale(1.1);
 }

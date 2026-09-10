@@ -148,17 +148,10 @@ export function StreakCard({ userId, defaultExpanded = false }: StreakCardProps)
 
                     {/* Activity Heatmap / Punchcard */}
                     <div className="vc-streaks-punchcard-section">
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
+                        <div className="vc-streaks-punchcard-toggle-row">
                             <span className="vc-streaks-section-label">Interaction Momentum</span>
                             <button
-                                style={{
-                                    background: "none",
-                                    border: "none",
-                                    fontSize: "10px",
-                                    color: "var(--interactive-normal, #949ba4)",
-                                    cursor: "pointer",
-                                    textDecoration: "underline"
-                                }}
+                                className="vc-streaks-mode-toggle"
                                 onClick={() => setPunchcardMode(punchcardMode === "week" ? "month" : "week")}
                             >
                                 {punchcardMode === "week" ? "Show Month" : "Show 7 Days"}

@@ -39,12 +39,8 @@ export function StreakBadge({ userId, record: propRecord, variant = "default" }:
                         {...props}
                         className="vc-streaks-voice-icon"
                         style={{
-                            display: "inline-flex",
-                            alignItems: "center",
-                            marginLeft: "6px",
-                            verticalAlign: "middle",
-                            cursor: "pointer",
-                            filter: `drop-shadow(0 0 4px ${currentTier.color})`
+                            color: currentTier.color,
+                            filter: `drop-shadow(0 0 3px ${currentTier.glowColor})`
                         }}
                     >
                         {streakCount > 0 ? (
@@ -69,19 +65,9 @@ export function StreakBadge({ userId, record: propRecord, variant = "default" }:
                         {...props}
                         className="vc-streaks-header-badge"
                         style={{
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: "4px",
-                            padding: "2px 8px",
-                            borderRadius: "12px",
-                            fontSize: "12px",
-                            fontWeight: 600,
-                            backgroundColor: "rgba(0, 0, 0, 0.45)",
-                            border: `1px solid ${currentTier.color}`,
-                            boxShadow: `0 0 10px ${currentTier.glowColor}`,
-                            color: currentTier.color,
-                            cursor: "pointer",
-                            marginRight: "6px"
+                            borderColor: currentTier.color,
+                            boxShadow: `0 0 6px ${currentTier.glowColor}`,
+                            color: currentTier.color
                         }}
                     >
                         <span
@@ -104,7 +90,7 @@ export function StreakBadge({ userId, record: propRecord, variant = "default" }:
                     className="vc-streaks-badge"
                     style={{
                         borderColor: currentTier.color,
-                        boxShadow: `0 0 8px ${currentTier.glowColor}`
+                        boxShadow: `0 0 6px ${currentTier.glowColor}`
                     }}
                 >
                     <span
