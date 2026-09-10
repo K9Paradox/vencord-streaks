@@ -1,3 +1,4 @@
+import ErrorBoundary from "@components/ErrorBoundary";
 import { definePluginSettings } from "@api/Settings";
 import definePlugin, { OptionType } from "@utils/types";
 import { React } from "@webpack/common";
@@ -24,11 +25,6 @@ export const settings = definePluginSettings({
         description: "Show interaction streak and familiarity card in User Popout",
         default: true
     },
-    showBadgeInHeader: {
-        type: OptionType.BOOLEAN,
-        description: "Show compact familiarity badge next to the username / badges",
-        default: true
-    },
     minSessionDurationSeconds: {
         type: OptionType.NUMBER,
         description: "Minimum seconds in VC together to count as a session",
@@ -36,49 +32,38 @@ export const settings = definePluginSettings({
     }
 });
 
+const profilePopoutComponent = ErrorBoundary.wrap(
+    (props: { user?: { id: string }; }) => {
+        if (!settings.store.showInPopout || !props?.user?.id) return null;
+        return <StreakCard userId={props.user.id} />;
+    },
+    { noop: true }
+);
+
 export default definePlugin({
     name: "Streaks",
     description: "Tracks mutual voice channel sessions, DMs, familiarity badges, and interaction streaks.",
+    tags: ["Utility", "Friends", "Voice"],
     authors: [
         {
-            name: "K9Paradox",
-            id: 5059395n
+            name: "TheK9.",
+            id: 153303492981686274n
         }
     ],
     settings,
 
     patches: [
-        // Patch User Popout to inject the interaction streaks card
         {
-            find: 'userPopout:',
-            replacement: [
-                {
-                    match: /(children:\[)([\s\S]*?)(renderActivity\(\))/m,
-                    replace: "$1$self.renderStreaksCard(arguments[0]?.user),$2$3"
-                }
-            ]
-        },
-        // Fallback / alternate patch for user profile bio / body section
-        {
-            find: '.userProfileModal',
-            replacement: [
-                {
-                    match: /(children:\[)([\s\S]*?)(customStatus:)/m,
-                    replace: "$1$self.renderStreaksBadge(arguments[0]?.user),$2$3"
-                }
-            ]
+            // Standard Vencord UserProfilePopout injection (matching ReviewDB / ShowConnections)
+            find: '"UserProfilePopout");',
+            replacement: {
+                match: /userId:\i\.id,guild:\i\}\)(?=])/,
+                replace: "$&,$self.profilePopoutComponent(arguments[0])"
+            }
         }
     ],
 
-    renderStreaksCard(user: any) {
-        if (!settings.store.showInPopout || !user?.id) return null;
-        return <StreakCard userId={user.id} />;
-    },
-
-    renderStreaksBadge(user: any) {
-        if (!settings.store.showBadgeInHeader || !user?.id) return null;
-        return <StreakBadge userId={user.id} />;
-    },
+    profilePopoutComponent,
 
     start() {
         initStorage();
