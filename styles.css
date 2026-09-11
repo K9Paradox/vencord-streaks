@@ -7,81 +7,117 @@
    Adaptive Theme Custom Properties
    -------------------------------------------------------------------------- */
 
-/* Light Theme (and default light fallback) */
-/* Light Theme (and default light / pastel fallback) */
-:root, .theme-light {
-    --streaks-card-bg: rgba(255, 255, 255, 0.45);
-    --streaks-card-border: rgba(0, 0, 0, 0.06);
-    --streaks-card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+/* Core Adaptive Theme Variables */
+:root {
+    --streaks-card-bg: rgba(255, 255, 255, 0.05);
+    --streaks-card-border: rgba(255, 255, 255, 0.08);
+    --streaks-card-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
 
-    --streaks-surface-box: rgba(255, 255, 255, 0.40);
-    --streaks-surface-border: rgba(0, 0, 0, 0.04);
-    --streaks-surface-hover: rgba(255, 255, 255, 0.65);
+    --streaks-surface-box: rgba(255, 255, 255, 0.04);
+    --streaks-surface-border: rgba(255, 255, 255, 0.06);
+    --streaks-surface-hover: rgba(255, 255, 255, 0.08);
+
+    --streaks-track-bg: rgba(255, 255, 255, 0.10);
+
+    /* Guaranteed contrast text colors */
+    --streaks-text-primary: var(--text-normal, #f2f3f5);
+    --streaks-text-secondary: var(--text-muted, #b5bac1);
+    --streaks-text-muted: var(--text-muted, #949ba4);
+    --streaks-text-value: var(--interactive-active, #ffffff);
+
+    /* Default Tier Neon Accents */
+    --streaks-tier-first-contact: #949BA4;
+    --streaks-tier-first-contact-glow: rgba(148, 155, 164, 0.25);
+    --streaks-tier-bronze: #CD7F32;
+    --streaks-tier-bronze-glow: rgba(205, 127, 50, 0.35);
+    --streaks-tier-silver: #E2E8F0;
+    --streaks-tier-silver-glow: rgba(226, 232, 240, 0.40);
+    --streaks-tier-gold: #FEE75C;
+    --streaks-tier-gold-glow: rgba(254, 231, 92, 0.45);
+    --streaks-tier-emerald: #57F287;
+    --streaks-tier-emerald-glow: rgba(87, 242, 135, 0.45);
+    --streaks-tier-amethyst: #A855F7;
+    --streaks-tier-amethyst-glow: rgba(168, 85, 247, 0.45);
+    --streaks-tier-ruby: #F23F43;
+    --streaks-tier-ruby-glow: rgba(242, 63, 67, 0.50);
+    --streaks-tier-diamond: #00F0FF;
+    --streaks-tier-diamond-glow: rgba(0, 240, 255, 0.55);
+}
+
+/* Light Theme Overrides (for light client or light profile popouts) */
+.theme-light,
+[class*="theme-light"] {
+    --streaks-card-bg: rgba(0, 0, 0, 0.035);
+    --streaks-card-border: rgba(0, 0, 0, 0.08);
+    --streaks-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+    --streaks-surface-box: rgba(0, 0, 0, 0.03);
+    --streaks-surface-border: rgba(0, 0, 0, 0.06);
+    --streaks-surface-hover: rgba(0, 0, 0, 0.05);
 
     --streaks-track-bg: rgba(0, 0, 0, 0.08);
 
-    /* Adaptive Tier Accent Colors (WCAG Contrast on Light Backgrounds) */
-    --streaks-tier-first-contact: var(--text-muted, #475569);
-    --streaks-tier-first-contact-glow: rgba(71, 85, 105, 0.15);
+    --streaks-text-primary: #313338;
+    --streaks-text-secondary: #4e5058;
+    --streaks-text-muted: #5c5e66;
+    --streaks-text-value: #111214;
 
+    /* WCAG Contrast on Light Backgrounds */
+    --streaks-tier-first-contact: #475569;
+    --streaks-tier-first-contact-glow: rgba(71, 85, 105, 0.15);
     --streaks-tier-bronze: #854d0e;
     --streaks-tier-bronze-glow: rgba(133, 77, 14, 0.20);
-
     --streaks-tier-silver: #475569;
     --streaks-tier-silver-glow: rgba(71, 85, 105, 0.20);
-
     --streaks-tier-gold: #b45309;
     --streaks-tier-gold-glow: rgba(180, 83, 9, 0.20);
-
     --streaks-tier-emerald: #15803d;
     --streaks-tier-emerald-glow: rgba(21, 128, 61, 0.20);
-
     --streaks-tier-amethyst: #7e22ce;
     --streaks-tier-amethyst-glow: rgba(126, 34, 206, 0.20);
-
     --streaks-tier-ruby: #b91c1c;
     --streaks-tier-ruby-glow: rgba(185, 28, 28, 0.20);
-
     --streaks-tier-diamond: #0369a1;
     --streaks-tier-diamond-glow: rgba(3, 105, 161, 0.20);
 }
 
-/* Dark & Midnight Theme Variables */
-.theme-dark, .theme-midnight {
-    --streaks-card-bg: rgba(0, 0, 0, 0.22);
-    --streaks-card-border: rgba(255, 255, 255, 0.06);
+/* Dark & Midnight Theme Overrides (always crisp light text) */
+.theme-dark,
+.theme-midnight,
+[class*="overlayBackground"] {
+    --streaks-card-bg: rgba(255, 255, 255, 0.045);
+    --streaks-card-border: rgba(255, 255, 255, 0.07);
     --streaks-card-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
 
-    --streaks-surface-box: rgba(0, 0, 0, 0.18);
-    --streaks-surface-border: rgba(255, 255, 255, 0.04);
-    --streaks-surface-hover: rgba(0, 0, 0, 0.30);
+    --streaks-surface-box: rgba(255, 255, 255, 0.035);
+    --streaks-surface-border: rgba(255, 255, 255, 0.05);
+    --streaks-surface-hover: rgba(255, 255, 255, 0.07);
 
-    --streaks-track-bg: rgba(255, 255, 255, 0.08);
+    --streaks-track-bg: rgba(255, 255, 255, 0.10);
 
-    /* Vibrant Neon Colors on Dark Backgrounds */
-    --streaks-tier-first-contact: #949BA4;
-    --streaks-tier-first-contact-glow: rgba(148, 155, 164, 0.25);
+    --streaks-text-primary: #f2f3f5;
+    --streaks-text-secondary: #b5bac1;
+    --streaks-text-muted: #949ba4;
+    --streaks-text-value: #ffffff;
+}
 
-    --streaks-tier-bronze: #CD7F32;
-    --streaks-tier-bronze-glow: rgba(205, 127, 50, 0.35);
+/* Force light card styles when overlay background itself is in light theme */
+[class*="overlayBackground"][class*="theme-light"],
+.theme-light [class*="overlayBackground"] {
+    --streaks-card-bg: rgba(0, 0, 0, 0.035);
+    --streaks-card-border: rgba(0, 0, 0, 0.08);
+    --streaks-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 
-    --streaks-tier-silver: #E2E8F0;
-    --streaks-tier-silver-glow: rgba(226, 232, 240, 0.40);
+    --streaks-surface-box: rgba(0, 0, 0, 0.03);
+    --streaks-surface-border: rgba(0, 0, 0, 0.06);
+    --streaks-surface-hover: rgba(0, 0, 0, 0.05);
 
-    --streaks-tier-gold: #FEE75C;
-    --streaks-tier-gold-glow: rgba(254, 231, 92, 0.45);
+    --streaks-track-bg: rgba(0, 0, 0, 0.08);
 
-    --streaks-tier-emerald: #57F287;
-    --streaks-tier-emerald-glow: rgba(87, 242, 135, 0.45);
-
-    --streaks-tier-amethyst: #A855F7;
-    --streaks-tier-amethyst-glow: rgba(168, 85, 247, 0.45);
-
-    --streaks-tier-ruby: #F23F43;
-    --streaks-tier-ruby-glow: rgba(242, 63, 67, 0.50);
-
-    --streaks-tier-diamond: #00F0FF;
-    --streaks-tier-diamond-glow: rgba(0, 240, 255, 0.55);
+    --streaks-text-primary: #313338;
+    --streaks-text-secondary: #4e5058;
+    --streaks-text-muted: #5c5e66;
+    --streaks-text-value: #111214;
 }
 
 /* --------------------------------------------------------------------------
@@ -152,7 +188,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: var(--header-secondary);
+    color: var(--streaks-text-secondary);
 }
 
 .vc-streaks-header-streak-pill {
@@ -336,19 +372,19 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: var(--header-secondary);
+    color: var(--streaks-text-secondary);
 }
 
 .vc-streaks-stat-value {
     font-size: 15px;
     font-weight: 700;
     font-variant-numeric: tabular-nums;
-    color: var(--header-primary);
+    color: var(--streaks-text-value);
 }
 
 .vc-streaks-stat-detail {
     font-size: 11px;
-    color: var(--text-muted);
+    color: var(--streaks-text-muted);
 }
 
 /* Activity Momentum (Punchcard) */
@@ -470,12 +506,12 @@
 
 .vc-streaks-footer-item {
     font-size: 11px;
-    color: var(--text-normal);
+    color: var(--streaks-text-primary);
 }
 
 .vc-streaks-footer-sub {
     font-size: 11px;
-    color: var(--text-muted);
+    color: var(--streaks-text-muted);
 }
 
 /* --------------------------------------------------------------------------
@@ -608,7 +644,7 @@
 .vc-streaks-tooltip-bold {
     font-weight: 700;
     font-size: 13px;
-    color: var(--header-primary);
+    color: var(--text-normal, #f2f3f5);
 }
 
 .vc-streaks-tooltip-desc,

@@ -146,7 +146,7 @@ export default definePlugin({
             find: "#{intl::GUEST_NAME_SUFFIX})]",
             replacement: [
                 {
-                    match: /(user:(\i)[\s\S]+?#{intl::GUEST_NAME_SUFFIX}.{0,50}?"")(\])/,
+                    match: /(children:\[[^\]]*?getName\((\i)\),.+?#{intl::GUEST_NAME_SUFFIX}.{0,20}?""\s*)(\])/,
                     replace: "$1,$self.renderVoiceBadge($2?.id)$3"
                 }
             ],
