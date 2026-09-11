@@ -1,6 +1,7 @@
 import { React, Tooltip } from "@webpack/common";
 import { calculateFamiliarity, isStreakActive } from "../badges";
-import { getRecord } from "../storage";
+import { settings } from "../settings";
+import { createSpoofedRecord, getRecord } from "../storage";
 import { InteractionRecord } from "../types";
 import { StreakFlame } from "./StreakFlame";
 
@@ -11,7 +12,10 @@ interface StreakBadgeProps {
 }
 
 export function StreakBadge({ userId, record: propRecord, variant = "default" }: StreakBadgeProps) {
-    const record = propRecord || getRecord(userId);
+    let record = propRecord || getRecord(userId);
+    if ((!record || (record.voice.totalSeconds === 0 && record.dms.totalMessages === 0)) && settings.store.devTestingMode) {
+        record = createSpoofedRecord(userId, settings.store.devTestingTier || "Gold");
+    }
     if (!record || (record.voice.totalSeconds === 0 && record.dms.totalMessages === 0)) {
         return null;
     }

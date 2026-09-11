@@ -1,19 +1,27 @@
 import { React } from "@webpack/common";
 import { calculateFamiliarity, formatDuration, formatRelativeTime, isStreakActive } from "../badges";
-import { getRecord } from "../storage";
+import { settings } from "../settings";
+import { createSpoofedRecord, getRecord } from "../storage";
+import { InteractionRecord } from "../types";
 import { StreakFlame } from "./StreakFlame";
 import { StreakPunchcard } from "./StreakPunchcard";
 
 interface StreakCardProps {
     userId: string;
+    record?: InteractionRecord;
     defaultExpanded?: boolean;
 }
 
-export function StreakCard({ userId, defaultExpanded = false }: StreakCardProps) {
+export function StreakCard({ userId, record: propRecord, defaultExpanded = false }: StreakCardProps) {
     const [isExpanded, setIsExpanded] = React.useState(defaultExpanded);
     const [punchcardMode, setPunchcardMode] = React.useState<"week" | "month">("week");
 
-    const record = getRecord(userId);
+    let record = propRecord || getRecord(userId);
+    const isSpoofed = (!record || (record.voice.totalSeconds === 0 && record.dms.totalMessages === 0)) && settings.store.devTestingMode;
+    if (isSpoofed) {
+        record = createSpoofedRecord(userId, settings.store.devTestingTier || "Gold");
+    }
+
     const { currentTier, nextTier, progressPercentage, totalHours, totalSessions } = calculateFamiliarity(record);
     const streakActive = isStreakActive(record?.streak?.lastActiveDate);
     const currentStreak = streakActive ? (record?.streak?.current || 0) : 0;
@@ -47,7 +55,10 @@ export function StreakCard({ userId, defaultExpanded = false }: StreakCardProps)
             {/* Header: Section label + Streak Pill + Expand Toggle */}
             <div className="vc-streaks-card-header" onClick={() => setIsExpanded(!isExpanded)}>
                 <div className="vc-streaks-header-left">
-                    <span className="vc-streaks-section-label">Streaks & Activity</span>
+                    <span className="vc-streaks-section-label">
+                        Streaks & Activity
+                        {isSpoofed && <span className="vc-streaks-dev-pill">DEV PREVIEW</span>}
+                    </span>
                 </div>
                 <div className="vc-streaks-header-right">
                     {currentStreak > 0 && (

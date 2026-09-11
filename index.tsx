@@ -20,41 +20,58 @@ import "./styles.css";
 
 export { settings };
 
-const renderProfileComponent = ErrorBoundary.wrap(
-    ({ user }: { user?: { id: string }; isSideBar?: boolean }) => {
-        if (!settings.store.showInPopout || !user?.id) return null;
-        return <StreakCard userId={user.id} />;
-    },
-    { noop: true }
-);
+function renderProfileComponent(props: any) {
+    try {
+        if (!settings.store.showInPopout) return null;
+        const userId = props?.user?.id;
+        if (!userId) return null;
+        return (
+            <ErrorBoundary noop={true}>
+                <StreakCard userId={userId} />
+            </ErrorBoundary>
+        );
+    } catch (e) {
+        console.error("[Streaks] Error rendering profile component:", e);
+        return null;
+    }
+}
 
-const renderHeaderBadge = ErrorBoundary.wrap(
-    (userId?: string) => {
-        if (!userId || !settings.store.showInProfileModal) return null;
-        return <StreakBadge userId={userId} variant="header" />;
-    },
-    { noop: true }
-);
-
-const renderVoiceBadge = ErrorBoundary.wrap(
-    (userId?: string) => {
+function renderVoiceBadge(userId?: string) {
+    try {
         if (!userId || !settings.store.showInVoiceChannel) return null;
-        return <StreakBadge userId={userId} variant="voice" />;
-    },
-    { noop: true }
-);
+        let record = getRecord(userId);
+        if ((!record || (record.voice.totalSeconds === 0 && record.dms.totalMessages === 0)) && settings.store.devTestingMode) {
+            record = createSpoofedRecord(userId, settings.store.devTestingTier || "Gold");
+        }
+        if (!record || (record.voice.totalSeconds === 0 && record.dms.totalMessages === 0)) {
+            return null;
+        }
+        return (
+            <ErrorBoundary noop={true}>
+                <StreakBadge userId={userId} record={record} variant="voice" />
+            </ErrorBoundary>
+        );
+    } catch (e) {
+        return null;
+    }
+}
 
-const renderProfileModalTab = ErrorBoundary.wrap(
-    ({ user }: { user?: { id: string } }) => {
-        if (!user?.id) return null;
+function renderProfileModalTab(props: any) {
+    try {
+        const userId = props?.user?.id;
+        if (!userId) return null;
         return (
             <div className="vc-streaks-modal-tab-content">
-                <StreakCard userId={user.id} defaultExpanded={true} />
+                <ErrorBoundary noop={true}>
+                    <StreakCard userId={userId} defaultExpanded={true} />
+                </ErrorBoundary>
             </div>
         );
-    },
-    { noop: true }
-);
+    } catch (e) {
+        console.error("[Streaks] Error rendering profile modal tab:", e);
+        return null;
+    }
+}
 
 export default definePlugin({
     name: "Streaks",
@@ -74,33 +91,24 @@ export default definePlugin({
             // DM profile sidebar
             find: ".SIDEBAR,disableToolbar:",
             replacement: {
-                match: /user:(\i),widgets:.{0,100}?\}\),(?=.{0,100}unownedWishlistItems:\i,wishlistId:\i)/,
-                replace: "$&$self.renderProfileComponent({user:$1,isSideBar:true}),"
+                match: /(user:(\i),widgets:.+?\}\),(?:Vencord\.Plugins\.plugins\["[^"]+"\]\.renderProfileComponent\(\{user:\i,isSideBar:true\}\),)?)/,
+                replace: "$1$self.renderProfileComponent({user:$2,isSideBar:true}),"
             }
         },
         {
             // User popout (matches module 727584)
             find: '"UserProfilePopout");',
             replacement: {
-                match: /user:(\i),widgets:.{0,100}?\}\),/,
-                replace: "$&$self.renderProfileComponent({user:$1}),"
+                match: /(user:(\i),widgets:.+?\}\),(?:Vencord\.Plugins\.plugins\["[^"]+"\]\.renderProfileComponent\(\{user:\i\}\),)?)/,
+                replace: "$1$self.renderProfileComponent({user:$2}),"
             }
-        },
-        {
-            // Full Profile Modal & Popout Header: places badge next to display name & pronouns
-            find: "#{intl::USER_PROFILE_PRONOUNS}",
-            replacement: {
-                match: /(user:(\i).{0,100}onClickDisplayName:\i,trailing:)(\[[^\]]+\]|\i)/,
-                replace: "$1[$self.renderHeaderBadge($2?.id),$3]"
-            },
-            predicate: () => settings.store.showInProfileModal
         },
         {
             // Full Profile Modal Tab (Legacy / standard modal): adds dedicated "Streaks" tab
             find: ".BOT_DATA_ACCESS?(",
             replacement: [
                 {
-                    match: /(?<=initialSection:\i=\i\.\i\.USER_INFO,onClose:\i\}=)([^,);]+)/,
+                    match: /(?<=initialSection:\i=\i\.\i\.USER_INFO,onClose:\i\}=)(Vencord\.Plugins\.plugins\["MutualGroupDMs"\]\.getProps\(\i\)|\i)/,
                     replace: "$self.getProfileModalProps($1)"
                 },
                 {
@@ -119,12 +127,12 @@ export default definePlugin({
             find: ".WIDGETS?",
             replacement: [
                 {
-                    match: /(?<=items:\i,initialSection:\i,onClose:\i\}=)([^,);]+)/,
+                    match: /(?<=items:\i,initialSection:\i,onClose:\i\}=)(Vencord\.Plugins\.plugins\["MutualGroupDMs"\]\.getProps\(\i\)|\i)/,
                     replace: "$self.getProfileModalProps($1)"
                 },
                 {
-                    match: /children:(?=.{0,100}?component:.+?section:(\i))/,
-                    replace: "$&$1.section==='STREAKS'?$self.renderProfileModalTab(arguments[0]):"
+                    match: /(children:(?:.+?\.section===['"]MUTUAL_GDMS['"]\?.+?:)?)(?=(?:.{0,150}?component:.+?section:(\w+)))/,
+                    replace: "$1$2.section==='STREAKS'?$self.renderProfileModalTab(arguments[0]):"
                 },
                 {
                     match: /type:"top",/,
@@ -147,7 +155,6 @@ export default definePlugin({
     ],
 
     renderProfileComponent,
-    renderHeaderBadge,
     renderVoiceBadge,
     renderProfileModalTab,
 
@@ -175,7 +182,18 @@ export default definePlugin({
         if (settings.store.showInMemberList) {
             addMemberListDecorator("Streaks", ({ user }) => {
                 if (!user || user.bot) return null;
-                return <StreakBadge userId={user.id} variant="memberList" />;
+                let record = getRecord(user.id);
+                if ((!record || (record.voice.totalSeconds === 0 && record.dms.totalMessages === 0)) && settings.store.devTestingMode) {
+                    record = createSpoofedRecord(user.id, settings.store.devTestingTier || "Silver");
+                }
+                if (!record || (record.voice.totalSeconds === 0 && record.dms.totalMessages === 0)) {
+                    return null;
+                }
+                return (
+                    <ErrorBoundary noop={true}>
+                        <StreakBadge userId={user.id} record={record} variant="memberList" />
+                    </ErrorBoundary>
+                );
             });
         }
 
