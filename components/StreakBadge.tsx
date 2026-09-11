@@ -36,6 +36,19 @@ export function StreakBadge({ userId, record: propRecord, variant = "default" }:
     );
 
     if (variant === "voice") {
+        if (streakCount > 0) {
+            return (
+                <span
+                    className="vc-streaks-voice-icon"
+                    style={{
+                        color: currentTier.color
+                    }}
+                >
+                    <StreakFlame streakDays={streakCount} size="small" showLabel={true} />
+                </span>
+            );
+        }
+
         return (
             <Tooltip text={tooltipText}>
                 {(props: any) => (
@@ -46,14 +59,10 @@ export function StreakBadge({ userId, record: propRecord, variant = "default" }:
                             color: currentTier.color
                         }}
                     >
-                        {streakCount > 0 ? (
-                            <StreakFlame streakDays={streakCount} size="small" showLabel={false} />
-                        ) : (
-                            <span
-                                className="vc-streaks-voice-tier-star"
-                                dangerouslySetInnerHTML={{ __html: currentTier.iconSvg }}
-                            />
-                        )}
+                        <span
+                            className="vc-streaks-voice-tier-star"
+                            dangerouslySetInnerHTML={{ __html: currentTier.iconSvg }}
+                        />
                     </span>
                 )}
             </Tooltip>

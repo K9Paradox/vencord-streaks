@@ -10,9 +10,10 @@ interface StreakCardProps {
     userId: string;
     record?: InteractionRecord;
     defaultExpanded?: boolean;
+    theme?: string;
 }
 
-export function StreakCard({ userId, record: propRecord, defaultExpanded = false }: StreakCardProps) {
+export function StreakCard({ userId, record: propRecord, defaultExpanded = false, theme }: StreakCardProps) {
     const [isExpanded, setIsExpanded] = React.useState(defaultExpanded);
     const [punchcardMode, setPunchcardMode] = React.useState<"week" | "month">("week");
 
@@ -28,10 +29,11 @@ export function StreakCard({ userId, record: propRecord, defaultExpanded = false
     const { currentTier, nextTier, progressPercentage, totalHours, totalSessions } = calculateFamiliarity(record);
     const streakActive = isStreakActive(record?.streak?.lastActiveDate);
     const currentStreak = streakActive ? (record?.streak?.current || 0) : 0;
+    const themeClass = theme ? `theme-${theme} vc-streaks-theme-${theme}` : "";
 
     if (!record || (record.voice.totalSeconds === 0 && record.dms.totalMessages === 0)) {
         return (
-            <div className="vc-streaks-card vc-streaks-card-empty">
+            <div className={`vc-streaks-card vc-streaks-card-empty ${themeClass}`}>
                 <div className="vc-streaks-card-header">
                     <span className="vc-streaks-section-label">Streaks & Activity</span>
                 </div>
@@ -54,7 +56,7 @@ export function StreakCard({ userId, record: propRecord, defaultExpanded = false
     });
 
     return (
-        <div className={`vc-streaks-card ${isExpanded ? "vc-streaks-card-expanded" : ""}`}>
+        <div className={`vc-streaks-card ${isExpanded ? "vc-streaks-card-expanded" : ""} ${themeClass}`}>
             {/* Header: Section label + Streak Pill + Expand Toggle */}
             <div className="vc-streaks-card-header" onClick={() => setIsExpanded(!isExpanded)}>
                 <div className="vc-streaks-header-left">

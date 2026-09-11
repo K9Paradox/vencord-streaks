@@ -1,3 +1,4 @@
+import { findByCodeLazy } from "@webpack";
 import { addMemberListDecorator, removeMemberListDecorator } from "@api/MemberListDecorators";
 import ErrorBoundary from "@components/ErrorBoundary";
 import definePlugin from "@utils/types";
@@ -20,14 +21,23 @@ import "./styles.css";
 
 export { settings };
 
+const getProfileThemeProps = findByCodeLazy(".getPreviewThemeColors", "primaryColor:");
+
 function renderProfileComponent(props: any) {
     try {
         if (!settings.store.showInPopout) return null;
         const userId = props?.user?.id;
         if (!userId) return null;
+        const theme = (() => {
+            try {
+                return getProfileThemeProps(props)?.theme;
+            } catch {
+                return undefined;
+            }
+        })();
         return (
             <ErrorBoundary noop={true}>
-                <StreakCard userId={userId} />
+                <StreakCard userId={userId} theme={theme} />
             </ErrorBoundary>
         );
     } catch (e) {
@@ -60,10 +70,17 @@ function renderProfileModalTab(props: any) {
     try {
         const userId = props?.user?.id;
         if (!userId) return null;
+        const theme = (() => {
+            try {
+                return getProfileThemeProps(props)?.theme;
+            } catch {
+                return undefined;
+            }
+        })();
         return (
             <div className="vc-streaks-modal-tab-content">
                 <ErrorBoundary noop={true}>
-                    <StreakCard userId={userId} defaultExpanded={true} />
+                    <StreakCard userId={userId} defaultExpanded={true} theme={theme} />
                 </ErrorBoundary>
             </div>
         );

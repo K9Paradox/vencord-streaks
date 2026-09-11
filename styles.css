@@ -9,21 +9,22 @@
 
 /* Core Adaptive Theme Variables */
 :root {
-    --streaks-card-bg: rgba(255, 255, 255, 0.05);
-    --streaks-card-border: rgba(255, 255, 255, 0.08);
+    --streaks-card-bg: var(--profile-body-background-color, var(--background-secondary-alt, rgba(255, 255, 255, 0.05)));
+    --streaks-card-border: var(--profile-body-divider-color, rgba(255, 255, 255, 0.08));
     --streaks-card-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
 
-    --streaks-surface-box: rgba(255, 255, 255, 0.04);
-    --streaks-surface-border: rgba(255, 255, 255, 0.06);
-    --streaks-surface-hover: rgba(255, 255, 255, 0.08);
+    --streaks-surface-box: var(--background-modifier-accent, rgba(255, 255, 255, 0.04));
+    --streaks-surface-border: var(--profile-body-divider-color, rgba(255, 255, 255, 0.06));
+    --streaks-surface-hover: var(--background-modifier-hover, rgba(255, 255, 255, 0.08));
 
     --streaks-track-bg: rgba(255, 255, 255, 0.10);
 
-    /* Guaranteed contrast text colors */
-    --streaks-text-primary: var(--text-normal, #f2f3f5);
-    --streaks-text-secondary: var(--text-muted, #b5bac1);
+    /* Guaranteed contrast text colors using Discord's native theme tokens */
+    --streaks-text-primary: var(--text-default, var(--text-normal, #f2f3f5));
+    --streaks-text-secondary: var(--text-muted, #949ba4);
     --streaks-text-muted: var(--text-muted, #949ba4);
-    --streaks-text-value: var(--interactive-active, #ffffff);
+    --streaks-text-value: var(--text-strong, var(--interactive-active, var(--text-default, #ffffff)));
+    --streaks-toggle-color: var(--interactive-normal, #b5bac1);
 
     /* Default Tier Neon Accents */
     --streaks-tier-first-contact: #949BA4;
@@ -44,16 +45,20 @@
     --streaks-tier-diamond-glow: rgba(0, 240, 255, 0.55);
 }
 
-/* Light Theme Overrides (for light client or light profile popouts) */
+/* Light Theme Overrides (light app client or light profile popouts) */
 .theme-light,
-[class*="theme-light"] {
+.theme-light .vc-streaks-card,
+.vc-streaks-theme-light,
+[class*="theme-light"],
+[class*="overlayBackground"][class*="theme-light"],
+.theme-light [class*="overlayBackground"] {
     --streaks-card-bg: rgba(0, 0, 0, 0.035);
     --streaks-card-border: rgba(0, 0, 0, 0.08);
     --streaks-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 
-    --streaks-surface-box: rgba(0, 0, 0, 0.03);
+    --streaks-surface-box: rgba(0, 0, 0, 0.035);
     --streaks-surface-border: rgba(0, 0, 0, 0.06);
-    --streaks-surface-hover: rgba(0, 0, 0, 0.05);
+    --streaks-surface-hover: rgba(0, 0, 0, 0.06);
 
     --streaks-track-bg: rgba(0, 0, 0, 0.08);
 
@@ -61,6 +66,7 @@
     --streaks-text-secondary: #4e5058;
     --streaks-text-muted: #5c5e66;
     --streaks-text-value: #111214;
+    --streaks-toggle-color: #4e5058;
 
     /* WCAG Contrast on Light Backgrounds */
     --streaks-tier-first-contact: #475569;
@@ -84,7 +90,8 @@
 /* Dark & Midnight Theme Overrides (always crisp light text) */
 .theme-dark,
 .theme-midnight,
-[class*="overlayBackground"] {
+.vc-streaks-theme-dark,
+[class*="overlayBackground"]:not(.vc-streaks-theme-light):not([class*="theme-light"]) {
     --streaks-card-bg: rgba(255, 255, 255, 0.045);
     --streaks-card-border: rgba(255, 255, 255, 0.07);
     --streaks-card-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
@@ -99,25 +106,24 @@
     --streaks-text-secondary: #b5bac1;
     --streaks-text-muted: #949ba4;
     --streaks-text-value: #ffffff;
-}
+    --streaks-toggle-color: #b5bac1;
 
-/* Force light card styles when overlay background itself is in light theme */
-[class*="overlayBackground"][class*="theme-light"],
-.theme-light [class*="overlayBackground"] {
-    --streaks-card-bg: rgba(0, 0, 0, 0.035);
-    --streaks-card-border: rgba(0, 0, 0, 0.08);
-    --streaks-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-
-    --streaks-surface-box: rgba(0, 0, 0, 0.03);
-    --streaks-surface-border: rgba(0, 0, 0, 0.06);
-    --streaks-surface-hover: rgba(0, 0, 0, 0.05);
-
-    --streaks-track-bg: rgba(0, 0, 0, 0.08);
-
-    --streaks-text-primary: #313338;
-    --streaks-text-secondary: #4e5058;
-    --streaks-text-muted: #5c5e66;
-    --streaks-text-value: #111214;
+    --streaks-tier-first-contact: #949BA4;
+    --streaks-tier-first-contact-glow: rgba(148, 155, 164, 0.25);
+    --streaks-tier-bronze: #CD7F32;
+    --streaks-tier-bronze-glow: rgba(205, 127, 50, 0.35);
+    --streaks-tier-silver: #E2E8F0;
+    --streaks-tier-silver-glow: rgba(226, 232, 240, 0.40);
+    --streaks-tier-gold: #FEE75C;
+    --streaks-tier-gold-glow: rgba(254, 231, 92, 0.45);
+    --streaks-tier-emerald: #57F287;
+    --streaks-tier-emerald-glow: rgba(87, 242, 135, 0.45);
+    --streaks-tier-amethyst: #A855F7;
+    --streaks-tier-amethyst-glow: rgba(168, 85, 247, 0.45);
+    --streaks-tier-ruby: #F23F43;
+    --streaks-tier-ruby-glow: rgba(242, 63, 67, 0.50);
+    --streaks-tier-diamond: #00F0FF;
+    --streaks-tier-diamond-glow: rgba(0, 240, 255, 0.55);
 }
 
 /* --------------------------------------------------------------------------
@@ -134,7 +140,7 @@
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    color: var(--text-normal);
+    color: var(--streaks-text-primary);
     transition: background 0.15s ease, border-color 0.15s ease;
 }
 
@@ -157,7 +163,7 @@
 
 .vc-streaks-empty-desc {
     font-size: 12px;
-    color: var(--text-muted);
+    color: var(--streaks-text-muted);
     line-height: 16px;
     margin-top: 4px;
 }
@@ -199,7 +205,7 @@
 .vc-streaks-toggle-btn {
     background: none;
     border: none;
-    color: var(--interactive-normal);
+    color: var(--streaks-toggle-color, var(--interactive-normal));
     cursor: pointer;
     padding: 2px 4px;
     border-radius: 4px;
@@ -210,7 +216,7 @@
 }
 
 .vc-streaks-toggle-btn:hover {
-    color: var(--interactive-active);
+    color: var(--streaks-text-value, var(--interactive-active));
 }
 
 .vc-streaks-toggle-btn.expanded {
@@ -281,13 +287,13 @@
 
 .vc-streaks-overview-quickstats {
     font-size: 11px;
-    color: var(--text-muted);
+    color: var(--streaks-text-muted);
     font-weight: 500;
 }
 
 .vc-streaks-tier-tagline {
     font-size: 11px;
-    color: var(--text-muted);
+    color: var(--streaks-text-muted);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -306,7 +312,7 @@
     justify-content: space-between;
     font-size: 11px;
     font-weight: 600;
-    color: var(--text-muted);
+    color: var(--streaks-text-muted);
 }
 
 .vc-streaks-progress-track {
@@ -404,7 +410,7 @@
     background: none;
     border: none;
     font-size: 10px;
-    color: var(--text-muted);
+    color: var(--streaks-text-muted);
     cursor: pointer;
     text-decoration: underline;
     padding: 0;
@@ -412,7 +418,7 @@
 }
 
 .vc-streaks-view-toggle-btn:hover {
-    color: var(--interactive-active);
+    color: var(--streaks-text-value);
 }
 
 .vc-streaks-punchcard-pills {
@@ -443,7 +449,7 @@
 .vc-streaks-day-letter {
     font-size: 10px;
     font-weight: 700;
-    color: var(--text-muted);
+    color: var(--streaks-text-muted);
 }
 
 .vc-streaks-pill-indicator {
@@ -707,6 +713,8 @@
     font-size: 11px;
     font-weight: 700;
     line-height: 14px;
+    font-variant-numeric: tabular-nums;
+    color: var(--streaks-text-primary);
 }
 
 .vc-streaks-flame-wrapper.size-medium {
@@ -726,6 +734,8 @@
 .vc-streaks-flame-wrapper.size-medium .vc-streaks-flame-count {
     font-size: 12px;
     font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--streaks-text-value);
 }
 
 .vc-streaks-flame-svg {
@@ -788,12 +798,30 @@
 .vc-streaks-voice-icon {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
+    gap: 3px;
     margin-left: 6px;
     vertical-align: middle;
     line-height: 1;
     cursor: pointer;
     flex-shrink: 0;
+}
+
+.vc-streaks-voice-icon .vc-streaks-flame-wrapper {
+    gap: 2px;
+}
+
+.vc-streaks-voice-icon .vc-streaks-flame-count {
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 14px;
+    font-variant-numeric: tabular-nums;
+    color: var(--channels-default, var(--text-muted, #949ba4));
+    transition: color 0.15s ease;
+}
+
+.vc-streaks-voice-icon:hover .vc-streaks-flame-count,
+[class*="voiceUser"]:hover .vc-streaks-voice-icon .vc-streaks-flame-count {
+    color: var(--interactive-active, #ffffff);
 }
 
 .vc-streaks-voice-tier-star {
@@ -817,10 +845,19 @@
 .vc-streaks-memberlist-badge {
     display: inline-flex;
     align-items: center;
+    gap: 2px;
     margin-left: 4px;
     vertical-align: middle;
     cursor: pointer;
     line-height: 1;
+}
+
+.vc-streaks-memberlist-badge .vc-streaks-flame-count {
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 14px;
+    font-variant-numeric: tabular-nums;
+    color: var(--channels-default, var(--text-muted, #949ba4));
 }
 
 /* --------------------------------------------------------------------------
