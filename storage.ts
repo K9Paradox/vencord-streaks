@@ -59,6 +59,7 @@ export function createSpoofedRecord(userId: string, tier = "Gold"): InteractionR
     }
 
     return {
+        _isSpoofed: true,
         userId,
         username: "Spoofed User",
         firstSeen: now - 60 * 86400000,
@@ -238,7 +239,13 @@ export function clearUserRecord(userId: string): void {
     saveStorage();
 }
 
-export function clearAllRecords(): void {
+export async function clearAllRecords(): Promise<void> {
     cache = {};
-    saveStorage();
+    if (saveTimeout) clearTimeout(saveTimeout);
+    try {
+        await DataStore.set(STORAGE_KEY, {});
+        console.log("[Streaks] Database cleared successfully.");
+    } catch (e) {
+        console.error("[Streaks] Failed to clear DataStore:", e);
+    }
 }

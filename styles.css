@@ -8,16 +8,17 @@
    -------------------------------------------------------------------------- */
 
 /* Light Theme (and default light fallback) */
+/* Light Theme (and default light / pastel fallback) */
 :root, .theme-light {
-    --streaks-card-bg: var(--background-secondary-alt, #e3e5e8);
-    --streaks-card-border: var(--border-subtle, rgba(0, 0, 0, 0.08));
-    --streaks-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    --streaks-card-bg: rgba(255, 255, 255, 0.45);
+    --streaks-card-border: rgba(0, 0, 0, 0.06);
+    --streaks-card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 
-    --streaks-surface-box: var(--background-modifier-accent, rgba(0, 0, 0, 0.05));
-    --streaks-surface-border: var(--border-subtle, rgba(0, 0, 0, 0.06));
-    --streaks-surface-hover: var(--background-modifier-hover, rgba(0, 0, 0, 0.08));
+    --streaks-surface-box: rgba(255, 255, 255, 0.40);
+    --streaks-surface-border: rgba(0, 0, 0, 0.04);
+    --streaks-surface-hover: rgba(255, 255, 255, 0.65);
 
-    --streaks-track-bg: var(--background-modifier-accent, rgba(0, 0, 0, 0.10));
+    --streaks-track-bg: rgba(0, 0, 0, 0.08);
 
     /* Adaptive Tier Accent Colors (WCAG Contrast on Light Backgrounds) */
     --streaks-tier-first-contact: var(--text-muted, #475569);
@@ -47,15 +48,15 @@
 
 /* Dark & Midnight Theme Variables */
 .theme-dark, .theme-midnight {
-    --streaks-card-bg: var(--background-secondary-alt, #1e1f22);
-    --streaks-card-border: var(--border-subtle, rgba(255, 255, 255, 0.06));
-    --streaks-card-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+    --streaks-card-bg: rgba(0, 0, 0, 0.22);
+    --streaks-card-border: rgba(255, 255, 255, 0.06);
+    --streaks-card-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
 
-    --streaks-surface-box: var(--background-modifier-accent, rgba(255, 255, 255, 0.04));
-    --streaks-surface-border: var(--border-subtle, rgba(255, 255, 255, 0.04));
-    --streaks-surface-hover: var(--background-modifier-hover, rgba(255, 255, 255, 0.06));
+    --streaks-surface-box: rgba(0, 0, 0, 0.18);
+    --streaks-surface-border: rgba(255, 255, 255, 0.04);
+    --streaks-surface-hover: rgba(0, 0, 0, 0.30);
 
-    --streaks-track-bg: var(--background-modifier-accent, rgba(255, 255, 255, 0.08));
+    --streaks-track-bg: rgba(255, 255, 255, 0.08);
 
     /* Vibrant Neon Colors on Dark Backgrounds */
     --streaks-tier-first-contact: #949BA4;
@@ -87,17 +88,28 @@
    Main Profile Card (Popout & Full Modal Container)
    -------------------------------------------------------------------------- */
 .vc-streaks-card {
-    background: var(--profile-body-background-color, var(--streaks-card-bg));
+    background: var(--streaks-card-bg);
     border-radius: 8px;
     padding: 10px 12px;
     margin: 8px 0;
     border: 1px solid var(--streaks-card-border);
     box-shadow: var(--streaks-card-shadow);
+    backdrop-filter: blur(8px);
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
     color: var(--text-normal);
     transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.vc-streaks-card:hover {
+    background: var(--streaks-surface-hover);
+}
+
+/* Seamless support for custom Nitro colored profiles */
+[class*="overlayBackground"] .vc-streaks-card {
+    background: var(--streaks-card-bg);
+    border: 1px solid var(--streaks-card-border);
 }
 
 .vc-streaks-card-empty {
@@ -464,6 +476,23 @@
 .vc-streaks-footer-sub {
     font-size: 11px;
     color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Full Profile Modal Tab Content
+   -------------------------------------------------------------------------- */
+.vc-streaks-modal-tab-content {
+    padding: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.vc-streaks-modal-tab-content .vc-streaks-card {
+    margin: 0;
+    width: 100%;
 }
 
 /* --------------------------------------------------------------------------

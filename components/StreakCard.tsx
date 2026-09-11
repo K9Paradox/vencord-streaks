@@ -17,8 +17,11 @@ export function StreakCard({ userId, record: propRecord, defaultExpanded = false
     const [punchcardMode, setPunchcardMode] = React.useState<"week" | "month">("week");
 
     let record = propRecord || getRecord(userId);
-    const isSpoofed = (!record || (record.voice.totalSeconds === 0 && record.dms.totalMessages === 0)) && settings.store.devTestingMode;
-    if (isSpoofed) {
+    const isSpoofed = Boolean(
+        (record as any)?._isSpoofed ||
+        ((!record || (record.voice.totalSeconds === 0 && record.dms.totalMessages === 0)) && settings.store.devTestingMode)
+    );
+    if ((!record || (record.voice.totalSeconds === 0 && record.dms.totalMessages === 0)) && settings.store.devTestingMode) {
         record = createSpoofedRecord(userId, settings.store.devTestingTier || "Gold");
     }
 
@@ -57,7 +60,11 @@ export function StreakCard({ userId, record: propRecord, defaultExpanded = false
                 <div className="vc-streaks-header-left">
                     <span className="vc-streaks-section-label">
                         Streaks & Activity
-                        {isSpoofed && <span className="vc-streaks-dev-pill">DEV PREVIEW</span>}
+                        {isSpoofed && (
+                            <span className="vc-streaks-dev-pill" title="Dev Testing Mode active in Settings">
+                                DEV PREVIEW
+                            </span>
+                        )}
                     </span>
                 </div>
                 <div className="vc-streaks-header-right">

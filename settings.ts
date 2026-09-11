@@ -1,5 +1,7 @@
 import { definePluginSettings } from "@api/Settings";
 import { OptionType } from "@utils/types";
+import { Button, React, showToast, Toasts } from "@webpack/common";
+import { clearAllRecords } from "./storage";
 
 export const settings = definePluginSettings({
     trackVoice: {
@@ -54,5 +56,19 @@ export const settings = definePluginSettings({
             { label: "Ruby (Kinship)", value: "Ruby" },
             { label: "Diamond (Eternal)", value: "Diamond" }
         ]
+    },
+    resetDatabase: {
+        type: OptionType.COMPONENT,
+        description: "Clear all saved interaction records to start fresh with real forward-looking tracking",
+        component: () => (
+            React.createElement(Button, {
+                size: Button.Sizes.SMALL,
+                color: Button.Colors.RED,
+                onClick: async () => {
+                    await clearAllRecords();
+                    showToast("Streaks database cleared successfully!", Toasts.Type.SUCCESS);
+                }
+            }, "Clear Streaks Database")
+        )
     }
 });

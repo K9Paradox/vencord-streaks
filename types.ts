@@ -27,6 +27,7 @@ export interface DailyActivity {
 export interface InteractionRecord {
     userId: string;
     username?: string;
+    _isSpoofed?: boolean;
     firstSeen: number;
     lastSeen: number;
     lastInteractionType: InteractionType;
