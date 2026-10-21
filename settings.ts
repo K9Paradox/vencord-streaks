@@ -1,6 +1,6 @@
 import { definePluginSettings } from "@api/Settings";
 import { OptionType } from "@utils/types";
-import { Button, React, showToast, Toasts } from "@webpack/common";
+import { Button, React, showToast } from "@webpack/common";
 import { clearAllRecords } from "./storage";
 
 export const settings = definePluginSettings({
@@ -66,7 +66,7 @@ export const settings = definePluginSettings({
                 color: Button.Colors.RED,
                 onClick: async () => {
                     await clearAllRecords();
-                    showToast("Streaks database cleared successfully!", Toasts.Type.SUCCESS);
+                    showToast({ text: "Streaks database cleared successfully!", variant: "success" });
                 }
             }, "Clear Streaks Database")
         )
